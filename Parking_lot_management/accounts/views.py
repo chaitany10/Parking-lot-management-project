@@ -1,12 +1,8 @@
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-import datetime
+from django.http import HttpResponseRedirect
+
 from .models import Profile
-from django.views.generic import View
-from django.template.loader import get_template
-from django.shortcuts import render
 
 
 def authentication_check(request, required_roles=None, required_GET=None):
@@ -36,6 +32,7 @@ def authentication_check(request, required_roles=None, required_GET=None):
             if key not in request.GET:
                 request.session['alert_danger'] = "Looks like you tried to use a malformed URL."
                 return HttpResponseRedirect('/error/denied/')
+
 
 def register_user(email, password, first_name, last_name, phone, roll_no, active, role):
     user = User.objects.create_user(
