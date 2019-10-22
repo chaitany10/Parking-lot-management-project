@@ -8,7 +8,7 @@ class Customer(models.Model):
         ('M', "Male"),
         ('F', "Female"),
     )
-    id = models.AutoField(unique=True,primary_key=True)
+    id = models.AutoField(unique=True, primary_key=True)
     firstname = models.CharField(blank=True, max_length=50)
     lastname = models.CharField(blank=True, max_length=50)
     sex = models.CharField(blank=True, max_length=1, choices=GENDER)
@@ -33,3 +33,21 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.firstname + " " + self.lastname
+
+
+class Regular_Customer:
+    id = models.AutoField(unique=True, primary_key=True)
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    purchase_date = models.DateField(auto_now=True)
+    start_date = models.DateField(auto_now=True)
+    cost = models.IntegerField()
+
+
+class Vehicle_Numbers:
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    vehicle_no = models.CharField(max_length=20)
+
+
+class Cost:
+    cost = models.ForeignKey(Regular_Customer, primary_key=True)
+    duration = models.IntegerField(default=30)
