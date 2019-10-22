@@ -3,11 +3,12 @@ from django.db import models
 
 # Create your models here.
 
-class Profile(models.Model):
+class Customer(models.Model):
     GENDER = (
         ('M', "Male"),
         ('F', "Female"),
     )
+    id = models.AutoField(unique=True,primary_key=True)
     firstname = models.CharField(blank=True, max_length=50)
     lastname = models.CharField(blank=True, max_length=50)
     sex = models.CharField(blank=True, max_length=1, choices=GENDER)

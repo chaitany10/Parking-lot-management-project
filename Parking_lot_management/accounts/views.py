@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 
-from .models import Profile
+from .models import Customer
 
 
 def authentication_check(request, required_roles=None, required_GET=None):
@@ -34,18 +34,17 @@ def authentication_check(request, required_roles=None, required_GET=None):
                 return HttpResponseRedirect('/error/denied/')
 
 
-def register_user(email, password, first_name, last_name, phone, roll_no, active, role):
+def register_user(email, password, first_name, last_name, phone):
     user = User.objects.create_user(
         email.lower(),
         email.lower(),
         password,
-        is_active=active
     )
-    profile = Profile(
+    customer = Customer(
         firstname=first_name,
         lastname=last_name,
         phone=phone,
     )
-    profile.save()
+    customer.save()
 
     return user
