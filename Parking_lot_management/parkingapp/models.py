@@ -41,10 +41,3 @@ class parking_slot(models.Model):
     slot_no=models.IntegerField(default=1)
     class Meta:
         unique_together = (('floor_id', 'parking_slot_id'),)
-
-
-
-
-
-
-      

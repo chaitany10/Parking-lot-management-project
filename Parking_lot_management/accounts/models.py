@@ -35,7 +35,7 @@ class Customer(models.Model):
         return self.firstname + " " + self.lastname
 
 
-class Regular_Customer:
+class Regular_Customer(models.Model):
     id = models.AutoField(unique=True, primary_key=True)
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     purchase_date = models.DateField(auto_now=True)
@@ -43,11 +43,11 @@ class Regular_Customer:
     cost = models.IntegerField()
 
 
-class Vehicle_Numbers:
+class Vehicle_Numbers(models.Model):
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     vehicle_no = models.CharField(max_length=20)
 
 
-class Cost:
+class Cost(models.Model):
     cost = models.ForeignKey(Regular_Customer, primary_key=True, on_delete=models.CASCADE)
     duration = models.IntegerField(default=30)
