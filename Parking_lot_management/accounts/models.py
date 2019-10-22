@@ -49,5 +49,5 @@ class Vehicle_Numbers:
 
 
 class Cost:
-    cost = models.ForeignKey(Regular_Customer, primary_key=True)
+    cost = models.ForeignKey(Regular_Customer, primary_key=True, on_delete=models.CASCADE)
     duration = models.IntegerField(default=30)
