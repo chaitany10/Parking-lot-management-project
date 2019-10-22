@@ -40,7 +40,7 @@ class Regular_Customer(models.Model):
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     purchase_date = models.DateField(auto_now=True)
     start_date = models.DateField(auto_now=True)
-    cost = models.IntegerField()
+    pass_cost = models.IntegerField()
 
 
 class Vehicle_Numbers(models.Model):
@@ -49,5 +49,5 @@ class Vehicle_Numbers(models.Model):
 
 
 class Cost(models.Model):
-    cost = models.ForeignKey(Regular_Customer, primary_key=True, on_delete=models.CASCADE)
+    cost = models.OneToOneField(Regular_Customer, primary_key=True, on_delete=models.CASCADE)
     duration = models.IntegerField(default=30)
