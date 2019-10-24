@@ -1,57 +1,81 @@
-from datetime import date
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib import auth
 from .models import Customer
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-class BasicForm(forms.Form):
-    def disable_field(self, field):
-        """
-        marks field as disabled
-        :param field:
-        :return:
-        """
-        self.fields[field].widget.attrs['disabled'] = ""
+class LoginForm(forms.Form):
+    username = forms.CharField(label='username', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'please enter user name'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter Password'}))
 
-    def mark_error(self, field, description):
-        """
-        Marks the given field as errous. The given description is displayed when the form it generated
-        :param field: name of the field
-        :param description: The error description
-        :return:
-        """
-        self._errors[field] = self.error_class([description])
-        del self.cleaned_data[field]
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
 
-    def clear_errors(self):
-        self._errors = {}
+        user = auth.authenticate(username=username, password=password)
+        if user is None:
+            raise forms.ValidationError('Username or password is incorrect')
+        else:
+            self.cleaned_data['user'] = user
+        return self.cleaned_data
+
+class RegForm(forms.Form):
+    username = forms.CharField(label='username',max_length=30,min_length=3,widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please enter 3-30 usernames'}))
+    email = forms.EmailField(label='email', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'email-id'}))
+    password = forms.CharField(label='password', min_length=6,widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'password'}))
+    password_again = forms.CharField(label='Re-enter password', min_length=6,widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
+
+    def clean_username(self):
+        print("inside clean_username")
+        username = self.cleaned_data['username']
+        print(username)
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Username already exists')
+        print("clean_username completed")
+        return username
+
+    def clean_email(self):
+        print("inside email")
+        email = self.cleaned_data['email']
+        print(email)
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('email already exits')
+
+        print("clean_email completed")
+        return email
+
+    def clean_password_again(self):
+        password = self.cleaned_data['password']
+        password_again = self.cleaned_data['password_again']
+        if password != password_again:
+            raise forms.ValidationError('Inconsistent password entered twice')
+
+        print("clean_password_again completed")
+
+        return password_again
+
+class UserDetailForm(forms.Form):
+    # user_name= forms.CharField(label=u'Username ',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':' Enter your username again'}))
+    # user_first_name= forms.CharField(label=u'Name ',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':' Enter your Name'}))
+    user_phone = forms.CharField(label=u'cellphone number',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':' Phone Number'}))
+    car_number = forms.CharField(label=u'number plate',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please enter the license plate number'}))
+    car_type = forms.CharField(label=u'Model',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please enter the model'}))
+    # car_color = forms.CharField(label=u'Car color',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':' enter the car color'}))
+    # car_kind = forms.CharField(label=u'car type',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please enter the type of vehicle'}))
+    # car_company = forms.CharField(label=u'car Company',widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please enter the Company of vehicle'}))
 
 
-def setup_field(field, placeholder=None):
-    """
-    This configures the given field to play nice with the bootstrap theme. Additionally, you can add
-    an additional argument to set a placeholder text on the field.
-    :param field:
-    :param placeholder:
-    :return:
-    """
-    field.widget.attrs['class'] = 'form-control'
-    if placeholder is not None:
-        field.widget.attrs['placeholder'] = placeholder
-
-
-class CustomerForm(BasicForm):
-    firstname = forms.CharField(label='First Name', max_length=50)
-    setup_field(firstname, 'Enter first name here')
-    lastname = forms.CharField(label='Last Name', max_length=50)
-    setup_field(lastname, 'Enter last name here')
-    sex = forms.ChoiceField(required=False, choices=Customer.GENDER)
-    setup_field(sex)
-    phone = forms.CharField(required=False, max_length=10)
-    setup_field(phone, 'Enter phone number here')
-
-    def assign(self, profile):
-        profile.firstname = self.cleaned_data['firstname']
-        profile.lastname = self.cleaned_data['lastname']
-        profile.sex = self.cleaned_data['sex']
-        profile.phone = self.cleaned_data['phone']
+    def clean(self):
+        # user_name= self.cleaned_data['user_name']
+        user_phone = self.cleaned_data['user_phone']
+        car_number = self.cleaned_data['car_number']
+        car_type = self.cleaned_data['car_type']
+        # car_color = self.cleaned_data['car_color']
+        # car_kind = self.cleaned_data['car_kind']
+        # user_first_name= self.cleaned_data['user_first_name']
+        # car_company= self.cleaned_data['car_company']
+        return self.cleaned_data
+    # def clean_user_phone(self):
+    #     user_phone = self.cleaned_data['user_phone']
+    #     if UserInfo.objects.filter(user_phone=user_phone).exists():
+    #         raise forms.ValidationError('用户名')
