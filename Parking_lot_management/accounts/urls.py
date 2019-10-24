@@ -9,6 +9,6 @@ from django.contrib.auth import views as auth_views
 app_name = 'accounts'
 
 urlpatterns =[
-    path('users/login/',views.login,name = 'login'),
+    path('login/',views.login,name = 'login'),
     path('register/',views.register,name = 'register')
 ]
