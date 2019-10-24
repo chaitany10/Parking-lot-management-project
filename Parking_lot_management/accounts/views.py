@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .models import Customer
 from .forms import LoginForm, RegForm, UserDetailForm
 from django.conf import settings
-from tariff.models import Tariffs
+#from tariff.models import Tariffs
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
 def login(request):
