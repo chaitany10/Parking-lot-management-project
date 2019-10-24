@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Parking system|Home
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div id="homebg"></div>
+<div>
+    <!--  -->
+    
+    <div id="windows1">
+        <div id="loginbox" >
+        	<div  id="heading">
+        		<h1 style="font-size: 100px">Easy Park
+            </h1>
+        	</div>
+            <!-- <h> {{ user.user.is_manager }} </h> -->
+            
+            {% if user.is_superuser or user.is_accountant or is_site_manager %}
+            <h2 class="normal_text">Welcome {{ user.username }}</h2>
+
+            {% elif user.is_authenticated %}
+            <h2 class="normal_text">Welcome {{ user.username }}, How can I help you?</h2>
+            
+        
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+            <div id="butn">
+                <div class="buttons">
+                    <a class="normal_text" href="{% url 'login' %}">Log-in</a>
+                </div>
+                <div class="buttons">
+                    <a class="normal_text" href="{% url 'register' %}">Register</a>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if user.is_superuser %}
+            <a class="normal_text" href="/tariff/download_csv" type="button" >Want to check total billings</a> 
+            <!-- <a class="normal_text" href="users/Checkoutuser" type="button" >Checkout User</a>       -->
+            <a class="normal_text" href="/admin/">Visit Databse</a>
+
+            {% endif %}
+            {% if user.is_site_manager %}
+                    <a class="normal_text" href="{% url 'Checkoutuser' %}" type="button" >Checkout User</a>      
+            {% endif %}
+
+            {% if user.is_accountant %}
+            <a class="normal_text" href="{% url 'accounts_index' %}" type="button" >Check Accounts</a>      
+
+            <!-- <a class="normal_text" href="{% url 'accounts_index' %}">Check Accounts</a> -->
+
+             {% endif%}
+            {% if  user.is_authenticated and not user.is_superuser and not user.is_site_manager and not user.is_manager and User_info.car_booking_status or User_info.admin_bit  %}
+            <a class="normal_text" href="/tariff/bills">Check Bill</a>
+
+            {% endif %}
+
+            <div>
+
+            </div>
+            {% if user.is_authenticated %}
+            <div style="height: 50px; margin-top: 20px;">
+                <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px;margin-right: 40px;border: 1px solid #f1f1f1;">
+                    {% if user.is_superuser or user.is_site_manager%}
+                    <a class="normal_text" href="/carposition/admins" type="button" >Check Occupancy</a>        
+                    {% endif %}  
+                    {% if user.is_authenticated and  not user.is_superuser and not user.is_site_manager and not user.is_accountant and not User_info.car_booking_status %}
+                        {{ user.is_manager }}  {{ user.is_accountant }}
+                        <!-- <p class="normal_text">Current remaining parking spaces:<b> {{ car_pos_num }} </b>个</p> -->
+                        <a class="normal_text" href="/carposition/index" type="button" >Booking parking space</a>        
+                    {% endif %}
+                </div>
+                <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px; border: 1px solid #f1f1f1;">
+                  {% if user.is_authenticated %}
+                     <a class="normal_text" href="{% url 'logout' %}">Log-out</a>
+                  {% endif %}
+                                
+                </div>
+
+            </div>
+            {% endif %} 
+            
+        
+
+
+        </div>        
+    </div>
+    </div>            
+</div>
+
+<!-- <div id="templatemo_banner_slide" class="container_wapper">
+    <div class="camera_wrap camera_emboss" id="camera_slide">
+        <! Background picture -->
+       <!--  <div data-src="{% static '/login/images/banner_slide_01.jpg' %}"></div>
+        <div data-src="{% static '/login/images/banner_slide_02.jpg'  %}"></div>
+        <div data-src="{% static '/login/images/banner_slide_03.jpg'  %}"></div>
+        <div data-src="{% static '/login/images/banner_slide_04.jpg'  %}"></div>
+        <div data-src="{% static '/login/images/banner_slide_05.jpg'  %}"></div>
+    </div> -->
+    <!-- #camera_wrap_3 -->
+<!-- </div> -->
+
+{% endblock %}

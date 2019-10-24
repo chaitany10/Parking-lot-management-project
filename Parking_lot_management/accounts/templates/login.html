@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Parking system|Log-in
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- <canvas class="cavs"></canvas> -->
+<div  id="loginbg" style="width:100%;height: 100%;text-align: center;margin: 0 auto;position: absolute;"></div>
+<div>
+    
+    <div id="windows1">
+    <div style="height: 140px;"></div>
+    <div id="loginbox" >	
+        <form action="" method="post" name="loginForm" id="loginForm">
+            {% csrf_token %}
+            <div class="control-group normal_text">					
+                <h3 style="text-align:center";style="font-family:verdana;color:white;font-size:40px;">
+                    Enter your credentials to access your account
+                </h3>
+            </div>
+            <div style="height: 30px;"></div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="username" required id="id_username" id="loginname" value="" placeholder="Please type in your username" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly">
+                        <i><img height="37" src="{% static '/login/suo.png' %}" /></i>
+                        </span><input type="password" name="password" required id="id_password" id="password" placeholder="Please enter your password" class="keypad" keypadMode="full" allowKeyboard="true" value=""/>
+                    </div>
+                </div>
+            </div>
+            <div style="float:right;padding-right:10%; position: relative; top: 0px;">
+                <div style="float: left;margin-top:3px;margin-right:2px;">
+                    <font color="white">Remember password</font>
+                </div>
+                <div style="float: left;">
+                    <input name="form-field-checkbox" id="saveid" type="checkbox"
+                        onclick="savePaw();" style="padding-top:0px;" />
+                </div>
+            </div>
+            <div style="height: 20px;"></div>
+            <div class="form-actions">
+                <div style="width:86%;padding-left:8%;">
+
+                    <div style="display: inline; margin-right: 30px;">
+                        <span style="display: inline;"><input onclick="severCheck();" class="flip-link btn btn-info" id="to-recover" 
+                        type="submit" value="Log in"></span>
+                    </div>
+                    <div style="display: inline;">
+
+                        <span  style="padding-right:3%;display: inline; color : white"> Do not have an account yet? <a href="/users/register" type="submit" class="btn btn-success">Register</a></span>
+                    
+                    </div>
+                    
+                    <!-- <span  style="padding-right:3%;display: inline;"><a href="/register" type="submit" class="btn btn-success">register</a></span>
+                    <p>Do not have an account yet?</p> -->
+                   <!--  </c:if>
+ -->                
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+    
+    
+    
+</div>
+
+
+<!-- <form action="" method="POST">
+    {% csrf_token %}
+    {% for field in login_form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        <p>{{ field.errors.as_text }}</p>
+    {% endfor %}
+    <span>{{ login_form.non_field_errors }}</span>
+    <input type="submit" value="登录">
+</form> -->
+{% endblock %}
