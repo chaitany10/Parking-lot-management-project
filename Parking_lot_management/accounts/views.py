@@ -35,7 +35,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def login(request):
+def login_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
     if request.method == 'POST':
