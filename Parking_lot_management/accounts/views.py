@@ -1,16 +1,16 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse,HttpResponseRedirect
-from django.urls import reverse
 from django.contrib import auth
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-#from carposition.models import Positions
-from .models import Customer
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .forms import LoginForm, RegForm
-from django.conf import settings
-#from tariff.models import Tariffs
-from django.views.decorators.cache import cache_control
-from django.contrib.auth.decorators import login_required
+# from carposition.models import Positions
+from .models import Customer,Vehicle_Numbers
+
+
+# from tariff.models import Tariffs
 
 
 def home(request):
@@ -20,20 +20,21 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
-    if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager :
+    if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
         print(request.user)
         customer = Customer.objects.get(email_address=request.user.email)
 
         context = {
-        'firstname': customer.firstname,
-        'lastname' : customer.lastname,
+            'firstname': customer.firstname,
+            'lastname': customer.lastname,
         }
-    # else:
-    #     context = {
-    #         'car_pos_num' : car_pos_num
-    # }
+        # else:
+        #     context = {
+        #         'car_pos_num' : car_pos_num
+        # }
         print("Rendering home")
-        return render(request,'home.html',context)
+        return render(request, 'home.html', context)
+
 
 def login(request):
     if request.user.is_authenticated:
@@ -45,6 +46,7 @@ def login(request):
                 username=login_form.cleaned_data['username'],
                 password=login_form.cleaned_data['password']
             )
+            login(request, user)
             if user is not None:
                 # request.session['alert_success'] = "Successfully logged in."
                 return HttpResponseRedirect('/home/')
@@ -61,12 +63,12 @@ def register(request):
         print("Hello ")
         if reg_form.is_valid():
             print("Hello")
-            customer =Customer()
+            customer = Customer()
             username = reg_form.cleaned_data['username']
             email = reg_form.cleaned_data['email']
             password = reg_form.cleaned_data['password']
             # Create user
-
+            vehicle = Vehicle_Numbers()
             user = User.objects.create_user(username, email, password)
             print(user.username)
             user.save()
@@ -74,7 +76,9 @@ def register(request):
             customer.firstname = reg_form.cleaned_data['firstname']
             customer.lastname = reg_form.cleaned_data['lastname']
             customer.phone = reg_form.cleaned_data['user_phone']
+            vehicle.vehicle_no = reg_form.cleaned_data['']
             customer.save()
+
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
 
@@ -85,7 +89,6 @@ def register(request):
     context = {}
     context['reg_form'] = reg_form
     return render(request, 'register.html', context)
-
 
 # @login_required
 # def user_detail(request):
@@ -132,4 +135,3 @@ def register(request):
 #
 #     return render(request, 'Checkoutuser.html', context)
 #
-
