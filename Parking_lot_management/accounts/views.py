@@ -75,8 +75,10 @@ def register(request):
             customer.firstname = reg_form.cleaned_data['firstname']
             customer.lastname = reg_form.cleaned_data['lastname']
             customer.phone = reg_form.cleaned_data['user_phone']
-            vehicle.vehicle_no = reg_form.cleaned_data['']
+            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
+            vehicle.customer_id = Customer.objects.get(phone = customer.phone)
             customer.save()
+            vehicle.save()
 
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
