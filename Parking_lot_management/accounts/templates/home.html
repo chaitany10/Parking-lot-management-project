@@ -61,28 +61,28 @@ Parking system|Home
             {% endif %}
 
             <div>
-##
-##             </div>
-##             {% if user.is_authenticated %}
-##             <div style="height: 50px; margin-top: 20px;">
-##                 <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px;margin-right: 40px;border: 1px solid #f1f1f1;">
-##                     {% if user.is_superuser or user.is_site_manager%}
-##                     <a class="normal_text" href="/carposition/admins" type="button" >Check Occupancy</a>
-##                     {% endif %}
-##                     {% if user.is_authenticated and  not user.is_superuser and not user.is_site_manager and not user.is_accountant and not User_info.car_booking_status %}
-##                         {{ user.is_manager }}  {{ user.is_accountant }}
-##                         <!-- <p class="normal_text">Current remaining parking spaces:<b> {{ car_pos_num }} </b>个</p> -->
-##                         <a class="normal_text" href="/carposition/index" type="button" >Booking parking space</a>
-##                     {% endif %}
-##                 </div>
-##                 <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px; border: 1px solid #f1f1f1;">
-##                   {% if user.is_authenticated %}
-##                      <a class="normal_text" href="{% url 'logout' %}">Log-out</a>
-##                   {% endif %}
-##
-##                 </div>
-##
-##             </div>
+
+             </div>
+             {% if user.is_authenticated %}
+             <div style="height: 50px; margin-top: 20px;">
+                 <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px;margin-right: 40px;border: 1px solid #f1f1f1;">
+                     {% if user.is_superuser or user.is_site_manager%}
+                     <a class="normal_text" href="/carposition/admins" type="button" >Check Occupancy</a>
+                     {% endif %}
+                     {% if user.is_authenticated and  not user.is_superuser and not user.is_site_manager and not user.is_accountant and not User_info.car_booking_status %}
+                         {{ user.is_manager }}  {{ user.is_accountant }}
+                         <!-- <p class="normal_text">Current remaining parking spaces:<b> {{ car_pos_num }} </b>个</p> -->
+                         <a class="normal_text" href="/carposition/index" type="button" >Booking parking space</a>
+                     {% endif %}
+                 </div>
+                 <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px; border: 1px solid #f1f1f1;">
+                   {% if user.is_authenticated %}
+                      <a class="normal_text" href="{% url 'logout' %}">Log-out</a>
+                   {% endif %}
+
+                 </div>
+
+             </div>
             {% endif %} 
             
         
