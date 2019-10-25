@@ -10,6 +10,9 @@ from django.conf import settings
 #from tariff.models import Tariffs
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
+
+def home(request):
+
 def login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)

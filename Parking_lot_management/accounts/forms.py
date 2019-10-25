@@ -40,8 +40,6 @@ class RegForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': ' Phone Number'}))
     car_number = forms.CharField(label=u'number plate', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter the license plate number'}))
-    car_type = forms.CharField(label=u'Model', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Please enter the model'}))
 
     def clean_username(self):
         print("inside clean_username")
@@ -75,5 +73,4 @@ class RegForm(forms.Form):
     def clean(self):
         user_phone = self.cleaned_data['user_phone']
         car_number = self.cleaned_data['car_number']
-        car_type = self.cleaned_data['car_type']
         return self.cleaned_data
