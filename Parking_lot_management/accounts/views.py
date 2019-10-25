@@ -77,7 +77,7 @@ def register(request):
             customer.phone = reg_form.cleaned_data['user_phone']
             customer.customer_id = reg_form.cleaned_data['username']
             vehicle.vehicle_no = reg_form.cleaned_data['car_number']
-            vehicle.customer_id = Customer.objects.get(phone=customer.phone)
+            vehicle.customer_id = customer.customer_id
             customer.save()
             vehicle.save()
 
