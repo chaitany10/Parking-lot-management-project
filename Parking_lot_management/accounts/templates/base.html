@@ -68,77 +68,78 @@
 
         <script type="text/javascript">
             //Server verification
-            // function severCheck(){
-            //     if(check()){
-            //         var loginname = $("#loginname").val();
-            //         var password = $("#password").val();
-            //         var code = loginname+","+password+","+$("#code").val();
-            //         $.ajax({
-            //             type: "POST",
-            //             url: 'login_login',
-            //             data: {KEYDATA:code,tm:new Date().getTime()},
-            //             dataType:'json',
-            //             cache: false,
-            //             success: function(data){
-            //                 if("success" == data.result){
-            //                     saveCookie();
-            //                     window.location.href="<%=basePath%>main/index";
-            //                 }else if("usererror" == data.result){
-            //                     $("#loginname").tips({
-            //                         side : 1,
-            //                         msg : " Incorrect name or password",
-            //                         bg : '#FF5080',
-            //                         time : 15
-            //                     });
-            //                     showfh();
-            //                     $("#loginname").focus();
-            //                 }else if("codeerror" == data.result){
-            //                     $("#code").tips({
-            //                         side : 1,
-            //                         msg : "Verification code input is incorrect",
-            //                         bg : '#FF5080',
-            //                         time : 15
-            //                     });
-            //                     showfh();
-            //                     $("#code").focus();
-            //                 }else{
-            //                     $("#loginname").tips({
-            //                         side : 1,
-            //                         msg : "Missing parameters",
-            //                         bg : '#FF5080',
-            //                         time : 15
-            //                     });
-            //                     showfh();
-            //                     $("#loginname").focus();
-            //                 }
-            //             }
-            //         });
-            //     }
-            // }
 
-            // $(document).ready(function() {
-            //     changeCode1();
-            //     $("#codeImg").bind("click", changeCode1);
-            //     $("#zcodeImg").bind("click", changeCode2);
-            // });
+               function severCheck(){
+                   if(check()){
+                       var loginname = $("#loginname").val();
+                       var password = $("#password").val();
+                       var code = loginname+","+password+","+$("#code").val();
+                       $.ajax({
+                           type: "POST",
+                           url: 'login_login',
+                           data: {KEYDATA:code,tm:new Date().getTime()},
+                           dataType:'json',
+                           cache: false,
+                           success: function(data){
+                               if("success" == data.result){
+                                   saveCookie();
+                                   window.location.href="<%=basePath%>main/index";
+                               }else if("usererror" == data.result){
+                                   $("#loginname").tips({
+                                       side : 1,
+                                       msg : " Incorrect name or password",
+                                       bg : '#FF5080',
+                                       time : 15
+                                   });
+                                   showfh();
+                                   $("#loginname").focus();
+                               }else if("codeerror" == data.result){
+                                   $("#code").tips({
+                                       side : 1,
+                                       msg : "Verification code input is incorrect",
+                                       bg : '#FF5080',
+                                       time : 15
+                                   });
+                                   showfh();
+                                   $("#code").focus();
+                               }else{
+                                   $("#loginname").tips({
+                                       side : 1,
+                                       msg : "Missing parameters",
+                                       bg : '#FF5080',
+                                       time : 15
+                                   });
+                                   showfh();
+                                   $("#loginname").focus();
+                               }
+                           }
+                       });
+                   }
+               }
 
-            // $(document).keyup(function(event) {
-            //     if (event.keyCode == 13) {
-            //         $("#to-recover").trigger("click");
-            //     }
-            // });
+               $(document).ready(function() {
+                   changeCode1();
+                   $("#codeImg").bind("click", changeCode1);
+                   $("#zcodeImg").bind("click", changeCode2);
+               });
 
-            // function genTimestamp() {
-            //     var time = new Date();
-            //     return time.getTime();
-            // }
+               $(document).keyup(function(event) {
+                   if (event.keyCode == 13) {
+                       $("#to-recover").trigger("click");
+                   }
+               });
 
-            // function changeCode1() {
-            //     $("#codeImg").attr("src", "code.do?t=" + genTimestamp());
-            // }
-            // function changeCode2() {
-            //     $("#zcodeImg").attr("src", "code.do?t=" + genTimestamp());
-            // }
+              function genTimestamp() {
+                  var time = new Date();
+                  return time.getTime();
+              }
+
+              function changeCode1() {
+                  $("#codeImg").attr("src", "code.do?t=" + genTimestamp());
+              }
+              function changeCode2() {
+                  $("#zcodeImg").attr("src", "code.do?t=" + genTimestamp());
+              }
     
             
             function check() {
