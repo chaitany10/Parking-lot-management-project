@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import auth
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 #from carposition.models import Positions
 from .models import Customer
@@ -11,15 +12,42 @@ from django.conf import settings
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
 
+
 def home(request):
+    # print("HI")
+
+    # car_positions =Positions.objects.filter(position_status=True)
+    # car_pos_num = car_positions.count()
+    # print(request.user.is_accountant)
+    # print(request.user.is_site_manager)
+    if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager :
+        print(request.user)
+        customer = Customer.objects.get(email_address=request.user.email)
+
+        context = {
+        'firstname': customer.firstname,
+        'lastname' : customer.lastname,
+        }
+    # else:
+    #     context = {
+    #         'car_pos_num' : car_pos_num
+    # }
+        print("Rendering home")
+        return render(request,'home.html',context)
 
 def login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/home/')
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            user = login_form.cleaned_data['user']
-            auth.login(request, user)
-            return redirect(request.GET.get('from', reverse('home')))
+            user = authenticate(
+                username=login_form.cleaned_data['username'],
+                password=login_form.cleaned_data['password']
+            )
+            if user is not None:
+                # request.session['alert_success'] = "Successfully logged in."
+                return HttpResponseRedirect('/home/')
     else:
         login_form = LoginForm()
     context = {}
