@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
-from .models import Customer,Vehicle_Numbers
+from .models import Customer, Vehicle_Numbers
 
 
 # from tariff.models import Tariffs
@@ -20,9 +20,9 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
-    #if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
+    # if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
     print(request.user)
-    customer = Customer.objects.get(email_address=request.user.email)
+    customer = Customer.objects.get(customer_id=request.user)
     context = {
         'firstname': customer.firstname,
         'lastname': customer.lastname,
@@ -75,8 +75,9 @@ def register(request):
             customer.firstname = reg_form.cleaned_data['firstname']
             customer.lastname = reg_form.cleaned_data['lastname']
             customer.phone = reg_form.cleaned_data['user_phone']
+            customer.customer_id = reg_form.cleaned_data['username']
             vehicle.vehicle_no = reg_form.cleaned_data['car_number']
-            vehicle.customer_id = Customer.objects.get(phone = customer.phone)
+            vehicle.customer_id = Customer.objects.get(phone=customer.phone)
             customer.save()
             vehicle.save()
 
@@ -90,6 +91,7 @@ def register(request):
     context = {}
     context['reg_form'] = reg_form
     return render(request, 'register.html', context)
+
 
 # @login_required
 # def user_detail(request):

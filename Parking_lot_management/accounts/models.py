@@ -8,7 +8,7 @@ class Customer(models.Model):
         ('M', "Male"),
         ('F', "Female"),
     )
-    id = models.AutoField(unique=True, primary_key=True)
+    customer_id = models.CharField(unique=True)
     firstname = models.CharField(blank=True, max_length=50)
     lastname = models.CharField(blank=True, max_length=50)
     sex = models.CharField(blank=True, max_length=1, choices=GENDER)
