@@ -20,20 +20,19 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
-    if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
-        print(request.user)
-        customer = Customer.objects.get(email_address=request.user.email)
-
-        context = {
-            'firstname': customer.firstname,
-            'lastname': customer.lastname,
-        }
-        # else:
-        #     context = {
-        #         'car_pos_num' : car_pos_num
-        # }
-        print("Rendering home")
-        return render(request, 'home.html', context)
+    #if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
+    print(request.user)
+    customer = Customer.objects.get(email_address=request.user.email)
+    context = {
+        'firstname': customer.firstname,
+        'lastname': customer.lastname,
+    }
+    # else:
+    #     context = {
+    #         'car_pos_num' : car_pos_num
+    # }
+    print("Rendering home")
+    return render(request, 'home.html', context)
 
 
 def login_view(request):
@@ -76,8 +75,10 @@ def register(request):
             customer.firstname = reg_form.cleaned_data['firstname']
             customer.lastname = reg_form.cleaned_data['lastname']
             customer.phone = reg_form.cleaned_data['user_phone']
-            vehicle.vehicle_no = reg_form.cleaned_data['']
+            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
+            vehicle.customer_id = Customer.objects.get(phone = customer.phone)
             customer.save()
+            vehicle.save()
 
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
