@@ -118,10 +118,10 @@ def register(request):
 #
 #
 # @login_required
-# def logout(request):
-#     auth.logout(request)
-#     return HttpResponseRedirect(settings.LOGIN_URL)
-#
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('login')
+
 #
 # def Checkoutuser(request):
 #     if not request.user.is_site_manager:
