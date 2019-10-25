@@ -11,6 +11,8 @@ class parkingLot(models.Model):
      landmark=models.CharField(max_length=30)
      building_no=models.IntegerField()
      street_name=models.CharField(max_length=30)
+     def __str__(self):
+         return self.parking_lot_id
 
 class block(models.Model):
     parking_lot_id=models.ForeignKey(parkingLot,on_delete=models.CASCADE)
