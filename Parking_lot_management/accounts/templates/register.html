@@ -34,11 +34,62 @@ Parking system|Register
                 </div>
             </div>
             <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="firstname" required id="id_firstname" id="firstname" value="" placeholder="Please type in your firstname" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="lastname" required id="id_lastname" id="lastname" value="" placeholder="Please type in your lastname" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="user_phone" required id="id_user_phone" id="user_phone" value="" placeholder="Please type in your phone number" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="car_number" required id="id_car_number" id="car_number" value="" placeholder="Please type in your Car Number" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
+                        </span><input type="text" name="car_type" required id="id_car_type" id="car_type" value="" placeholder="Please type in your Car Type" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">
                             <span class="add-on bg_lg">
                             <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                            </span><input type="email" name="email"  required required id="id_email" id="id_email" value="" placeholder="please input your email" />
+                            </span><input type="email" name="email" required id="id_email" id="id_email" value="" placeholder="please input your email" />
                         </div>
                     </div>
                 </div>
@@ -82,7 +133,7 @@ Parking system|Register
             <div style="height: 20px;"></div>
             <div class="form-actions">
                 <div style="width:86%; padding-left: 40px; ">                    
-                    <span style="height: 20px; width: 70px;"><input onclick="severCheck();" class="flip-link btn btn-info" id="to-recover" type="submit" value="Register"></span>
+                    <span style="height: 20px; width: 70px;"><input onclick="check();" class="flip-link btn btn-info" id="to-recover" type="submit" value="Register"></span>
                 </div>
             </div>
         </form>

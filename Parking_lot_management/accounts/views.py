@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 #from carposition.models import Positions
 from .models import Customer
-from .forms import LoginForm, RegForm, UserDetailForm
+from .forms import LoginForm, RegForm
 from django.conf import settings
 #from tariff.models import Tariffs
 from django.views.decorators.cache import cache_control
@@ -30,6 +30,7 @@ def register(request):
         print("Hello ")
         if reg_form.is_valid():
             print("Hello")
+            customer =Customer()
             username = reg_form.cleaned_data['username']
             email = reg_form.cleaned_data['email']
             password = reg_form.cleaned_data['password']
@@ -39,7 +40,10 @@ def register(request):
             print(user.username)
             user.save()
             # Login user
-
+            customer.firstname = reg_form.cleaned_data['firstname']
+            customer.lastname = reg_form.cleaned_data['lastname']
+            customer.phone = reg_form.cleaned_data['user_phone']
+            customer.save()
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
 
@@ -52,49 +56,49 @@ def register(request):
     return render(request, 'register.html', context)
 
 
-@login_required
-def user_detail(request):
-    if request.method == 'POST':
-        user_form = UserDetailForm(request.POST)
-        if user_form.is_valid() and (request.user is not None):
-            # Add user information
-            # print("Hello")
-            user_info = UserInfo()
-            # print("Hi")
-            user_info.user_name = request.user.username
-            # user_info.user_name = user_form.cleaned_data['user_name']
-            # user_info.user_first_name= user_form.cleaned_data['user_first_name']
-            user_info.user_phone = user_form.cleaned_data['user_phone']
-            user_info.car_number = user_form.cleaned_data['car_number']
-            user_info.car_type = user_form.cleaned_data['car_type']
-            # user_info.car_color = user_form.cleaned_data['car_color']
-            # user_info.car_kind = user_form.cleaned_data['car_kind']
-            user_info.save()
-        return redirect(request.GET.get('from', reverse('home')))
-    else:
-        user_form = UserDetailForm()
-    context = {}
-    context['user_form'] = user_form
-    return render(request, 'user_detail.html', context)
-
-
-@login_required
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(settings.LOGIN_URL)
-
-
-def Checkoutuser(request):
-    if not request.user.is_site_manager:
-        return redirect('/users/home')
-
-    UserInfolist = UserInfo.objects.values()
-
-    # print(UserInfolist)
-    context = {
-        'UserInfolist': UserInfolist
-    }
-
-    return render(request, 'Checkoutuser.html', context)
-
+# @login_required
+# def user_detail(request):
+#     if request.method == 'POST':
+#         user_form = UserDetailForm(request.POST)
+#         if user_form.is_valid() and (request.user is not None):
+#             # Add user information
+#             # print("Hello")
+#             user_info = UserInfo()
+#             # print("Hi")
+#             user_info.user_name = request.user.username
+#             # user_info.user_name = user_form.cleaned_data['user_name']
+#             # user_info.user_first_name= user_form.cleaned_data['user_first_name']
+#             user_info.user_phone = user_form.cleaned_data['user_phone']
+#             user_info.car_number = user_form.cleaned_data['car_number']
+#             user_info.car_type = user_form.cleaned_data['car_type']
+#             # user_info.car_color = user_form.cleaned_data['car_color']
+#             # user_info.car_kind = user_form.cleaned_data['car_kind']
+#             user_info.save()
+#         return redirect(request.GET.get('from', reverse('home')))
+#     else:
+#         user_form = UserDetailForm()
+#     context = {}
+#     context['user_form'] = user_form
+#     return render(request, 'user_detail.html', context)
+#
+#
+# @login_required
+# def logout(request):
+#     auth.logout(request)
+#     return HttpResponseRedirect(settings.LOGIN_URL)
+#
+#
+# def Checkoutuser(request):
+#     if not request.user.is_site_manager:
+#         return redirect('/users/home')
+#
+#     UserInfolist = UserInfo.objects.values()
+#
+#     # print(UserInfolist)
+#     context = {
+#         'UserInfolist': UserInfolist
+#     }
+#
+#     return render(request, 'Checkoutuser.html', context)
+#
 
