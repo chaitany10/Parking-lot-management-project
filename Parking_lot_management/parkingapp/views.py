@@ -18,7 +18,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-def car_site_index(request):#,site_num):
+def parking_lot_index(request):#,site_num):
     # site_no = get_object_or_404(Site, site_num=site_num)
     # if not request.user.is_authenticated:
     #     return redirect('/users/home')
@@ -32,7 +32,7 @@ def car_site_index(request):#,site_num):
         'positions_list':positions_list,
         'zipped_data':zipped_data
     }
-    return render(request,'car_site_index.html',context)
+    return render(request,'parking_lot_index.html',context)
 
 # def site_position_book(request,site_no):
 #     # status_list = Positions.objects.get(site_no=site_no)
