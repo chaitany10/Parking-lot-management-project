@@ -41,15 +41,15 @@ def block_index(request,parking_lot_no):
     }
     return render(request,'block_index.html',context)
 
-def floor_index(request):
-    positions_list=floor.objects.filter()
+def floor_index(request,block_no):
+    positions_list=floor.objects.filter(block_id=block_no)
     context={
         'positions_list':positions_list
     }
     return render(request,'floor_index.html',context)
 
-def parking_slot_index(request):
-    positions_list=parking_slot.objects.filter()
+def parking_slot_index(request,floor_no):
+    positions_list=parking_slot.objects.filter(floor_id=floor_no)
     context={
         'positions_list':positions_list
     }
