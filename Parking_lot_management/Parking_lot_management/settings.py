@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
-    'parkingapp.apps.ParkingappConfig',
+    'accounts',
+    'parkingapp',
     'reservationapp.apps.ReservationappConfig'
 ]
 

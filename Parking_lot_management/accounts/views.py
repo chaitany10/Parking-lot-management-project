@@ -25,8 +25,7 @@ def home(request):
 
         customer = Customer.objects.get(customer_id=request.user)
         context = {
-            'firstname': customer.firstname,
-            'lastname': customer.lastname,
+            'customer': customer
         }
     else:
         context = {
