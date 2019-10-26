@@ -1,3 +1,11 @@
 from django.contrib import admin
 
+from .models import parkingLot, block, floor, parking_slot
+
+
 # Register your models here.
+@admin.register(parkingLot)
+class parkingLotAdmin(admin.ModelAdmin):
+    list_display = ('is_slot_available','is_reentry_allowed','no_of_blocks','pincode','is_valet_available','landmark','building_no','street_name')
+
+
