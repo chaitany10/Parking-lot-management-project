@@ -9,6 +9,7 @@ from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers
 
+from django.conf import settings
 
 # from tariff.models import Tariffs
 
@@ -122,7 +123,7 @@ def register(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('login')
+    return HttpResponseRedirect(reverse('home'))
 
 #
 # def Checkoutuser(request):
