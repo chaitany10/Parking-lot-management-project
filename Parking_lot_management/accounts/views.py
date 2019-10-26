@@ -20,17 +20,18 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
-    # if request.user.is_authenticated and not request.user.is_superuser and not request.user.is_accountant and not request.user.is_site_manager:
-    print(request.user)
-    customer = Customer.objects.get(customer_id=request.user)
-    context = {
-        'firstname': customer.firstname,
-        'lastname': customer.lastname,
-    }
-    # else:
-    #     context = {
-    #         'car_pos_num' : car_pos_num
-    # }
+    if request.user.is_authenticated and not request.user.is_superuser:
+        print(request.user)
+
+        customer = Customer.objects.get(customer_id=request.user)
+        context = {
+            'firstname': customer.firstname,
+            'lastname': customer.lastname,
+        }
+    else:
+        context = {
+
+        }
     print("Rendering home")
     return render(request, 'home.html', context)
 
