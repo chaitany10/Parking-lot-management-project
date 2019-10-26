@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers
@@ -119,7 +119,7 @@ def register(request):
 #     return render(request, 'user_detail.html', context)
 #
 #
-# @login_required
+@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('login')
