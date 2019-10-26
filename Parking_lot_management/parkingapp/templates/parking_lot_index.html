@@ -11,7 +11,7 @@ Parking system|
         <div style="height: 50px;"></div>
         <div id="loginbox" style=" border: 1px solid #f1f1f1;background-color: rgba(0,0,0, 0.4); padding: 20px;">
                
-            <h1  style="color:white ; margin-bottom: 50px;"> Choose the site nearest to you </h1>
+            <h1  style="color:white ; margin-bottom: 50px;"> Select Parking Lot </h1>
                <!-- {% for rate in rates %}
                <h4>  {{ rate.pay_per_time }}</h4>
                 {% endfor %} -->
@@ -25,12 +25,12 @@ Parking system|
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="/carposition/book/{{ item.pk }}"> {{ item.site_address}}</a>   </h4>
+                                <h4 style="padding-left: 150px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.parking_lot_id}}</a>   </h4>
                             </td>
                             
-                            <!-- <td>                    
-                                <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. {{ rate.pay_per_time }}/hour</h4>
-                            </td> -->
+                            <td>                    
+                                <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. 0/hour</h4>
+                            </td>
                         </tr>
                         
                         {% endfor %}
