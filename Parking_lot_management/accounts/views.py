@@ -1,15 +1,16 @@
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers
 
-from django.conf import settings
 
 # from tariff.models import Tariffs
 
@@ -57,6 +58,7 @@ def login_view(request):
     return render(request, 'login.html', context)
 
 
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         reg_form = RegForm(request.POST)
@@ -68,30 +70,35 @@ def register(request):
             email = reg_form.cleaned_data['email']
             password = reg_form.cleaned_data['password']
             # Create user
-            vehicle = Vehicle_Numbers()
             user = User.objects.create_user(username, email, password)
             print(user.username)
             user.save()
-            # Login user
+            user1 = authenticate(
+                username=username,
+                password=password
+            )
+            login(request, user1)
             customer.firstname = reg_form.cleaned_data['firstname']
             customer.lastname = reg_form.cleaned_data['lastname']
             customer.phone = reg_form.cleaned_data['user_phone']
             customer.customer_id = reg_form.cleaned_data['username']
-            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
-            vehicle.customer_id = customer.customer_id
             customer.save()
+            customer1 = Customer.objects.get(customer_id=username)
+            vehicle = Vehicle_Numbers.objects.create(customer_id=customer1)
+            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
+
             vehicle.save()
 
-            user = auth.authenticate(username=username, password=password)
-            auth.login(request, user)
+            # Login user
 
-            return redirect(request.GET.get('from', reverse('user_detail')))
+            return HttpResponseRedirect('/home/')
+
         print("This place reached " + str(reg_form.errors))
     else:
         reg_form = RegForm()
-    context = {}
-    context['reg_form'] = reg_form
-    return render(request, 'register.html', context)
+        context = {}
+        context['reg_form'] = reg_form
+        return render(request, 'register.html', context)
 
 
 # @login_required

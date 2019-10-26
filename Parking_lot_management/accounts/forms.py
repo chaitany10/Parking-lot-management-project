@@ -44,7 +44,7 @@ class RegForm(forms.Form):
     def clean_username(self):
         print("inside clean_username")
         username = self.cleaned_data['username']
-        print(username)
+        # print(username)
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError('Username already exists')
         print("clean_username completed")
@@ -70,7 +70,3 @@ class RegForm(forms.Form):
 
         return password_again
 
-    def clean(self):
-        user_phone = self.cleaned_data['user_phone']
-        car_number = self.cleaned_data['car_number']
-        return self.cleaned_data

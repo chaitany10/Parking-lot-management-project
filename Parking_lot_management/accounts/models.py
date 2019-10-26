@@ -8,7 +8,7 @@ class Customer(models.Model):
         ('M', "Male"),
         ('F', "Female"),
     )
-    customer_id = models.CharField(unique=True, max_length=20)
+    customer_id = models.CharField(max_length=20)
     firstname = models.CharField(blank=True, max_length=50)
     lastname = models.CharField(blank=True, max_length=50)
     sex = models.CharField(blank=True, max_length=1, choices=GENDER)
@@ -32,7 +32,7 @@ class Customer(models.Model):
         return fields
 
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.customer_id
 
 
 class Regular_Customer(models.Model):
