@@ -6,7 +6,7 @@ from .models import Customer, Regular_Customer, Vehicle_Numbers, Cost
 # Register your models here.
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'firstname', 'lastname', 'sex', 'phone')
+    list_display = ('customer_id','firstname', 'lastname', 'sex', 'phone')
 
 
 @admin.register(Regular_Customer)
