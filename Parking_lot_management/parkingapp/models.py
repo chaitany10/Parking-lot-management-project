@@ -12,7 +12,7 @@ class parkingLot(models.Model):
      building_no=models.IntegerField()
      street_name=models.CharField(max_length=30)
      def __str__(self):
-         return self.parking_lot_id
+         return str(self.parking_lot_id)
 
 class block(models.Model):
     parking_lot_id=models.ForeignKey(parkingLot,on_delete=models.CASCADE)
