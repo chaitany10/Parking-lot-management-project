@@ -89,9 +89,7 @@ def register(request):
 
             vehicle.save()
 
-            # Login user
-
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect(reverse('home'))
 
         print("This place reached " + str(reg_form.errors))
     else:
