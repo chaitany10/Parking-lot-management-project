@@ -17,6 +17,7 @@ from .models import Customer, Vehicle_Numbers
 
 def home(request):
     # print("HI")
+    print('in home')
 
     # car_positions =Positions.objects.filter(position_status=True)
     # car_pos_num = car_positions.count()
@@ -74,22 +75,24 @@ def register(request):
             print(user.username)
             user.save()
             user1 = authenticate(
-                username=username,
-                password=password
+                username=reg_form.cleaned_data['username'],
+                password=reg_form.cleaned_data['password']
             )
             login(request, user1)
-            customer.firstname = reg_form.cleaned_data['firstname']
-            customer.lastname = reg_form.cleaned_data['lastname']
-            customer.phone = reg_form.cleaned_data['user_phone']
-            customer.customer_id = reg_form.cleaned_data['username']
-            customer.save()
-            customer1 = Customer.objects.get(customer_id=username)
-            vehicle = Vehicle_Numbers.objects.create(customer_id=customer1)
-            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
+            if request.user.is_authenticated:
+                print('inside is auth')
+                customer.firstname = reg_form.cleaned_data['firstname']
+                customer.lastname = reg_form.cleaned_data['lastname']
+                customer.phone = reg_form.cleaned_data['user_phone']
+                customer.customer_id = reg_form.cleaned_data['username']
+                customer.save()
+                customer1 = Customer.objects.get(customer_id=username)
+                vehicle = Vehicle_Numbers.objects.create(customer_id=customer1)
+                vehicle.vehicle_no = reg_form.cleaned_data['car_number']
 
-            vehicle.save()
+                vehicle.save()
 
-            return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('home'))
 
         print("This place reached " + str(reg_form.errors))
     else:
