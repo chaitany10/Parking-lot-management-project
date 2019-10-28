@@ -42,18 +42,16 @@ class floor(models.Model):
     block_code = models.CharField(max_length=30)
     class Meta:
         unique_together = (('block_id', 'floor_id'),)
-
     def __str__(self):
         return str(self.floor_id)
-
 
 class parking_slot(models.Model):
     floor_id = models.ForeignKey(floor, on_delete=models.CASCADE)
     parking_slot_id = models.IntegerField(validators=[MinValueValidator(1)])
     wing_code = models.CharField(max_length=10)
     slot_no = models.IntegerField(default=1)
+    is_reserved=models.BooleanField(default=False)
     class Meta:
         unique_together = (('floor_id', 'parking_slot_id'),)
-
     def __str__(self):
         return str(self.parking_slot_id)
