@@ -11,3 +11,8 @@ parts
 src/*.egg-info
 lib
 lib64
+.idea/Parking-lot-management-project.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+Parking_lot_management/.idea/
