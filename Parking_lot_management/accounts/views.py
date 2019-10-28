@@ -61,6 +61,8 @@ def login_view(request):
 
 @csrf_exempt
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/home/')
     if request.method == 'POST':
         reg_form = RegForm(request.POST)
         print("Hello ")
@@ -71,28 +73,28 @@ def register(request):
             email = reg_form.cleaned_data['email']
             password = reg_form.cleaned_data['password']
             # Create user
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username=username, email=email,password= password)
             print(user.username)
-            user.save()
             user1 = authenticate(
                 username=reg_form.cleaned_data['username'],
                 password=reg_form.cleaned_data['password']
             )
             login(request, user1)
-            if request.user.is_authenticated:
-                print('inside is auth')
-                customer.firstname = reg_form.cleaned_data['firstname']
-                customer.lastname = reg_form.cleaned_data['lastname']
-                customer.phone = reg_form.cleaned_data['user_phone']
-                customer.customer_id = reg_form.cleaned_data['username']
-                customer.save()
-                customer1 = Customer.objects.get(customer_id=username)
-                vehicle = Vehicle_Numbers.objects.create(customer_id=customer1)
-                vehicle.vehicle_no = reg_form.cleaned_data['car_number']
+            # if request.user.is_authenticated:
+            #     print('inside is auth')
+            customer.firstname = reg_form.cleaned_data['firstname']
+            customer.lastname = reg_form.cleaned_data['lastname']
+            customer.phone = reg_form.cleaned_data['user_phone']
+            customer.customer_id = reg_form.cleaned_data['username']
+            customer.save()
+            customer1 = Customer.objects.get(customer_id=username)
+            vehicle = Vehicle_Numbers()
+            vehicle.customer_id = customer1
+            vehicle.vehicle_no = reg_form.cleaned_data['car_number']
 
-                vehicle.save()
+            vehicle.save()
 
-                return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('home'))
 
         print("This place reached " + str(reg_form.errors))
     else:
