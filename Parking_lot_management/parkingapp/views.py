@@ -44,7 +44,7 @@ def floor_index(request, block_no):
 
 
 def parking_slot_index(request, floor_no):
-    positions_list = parking_slot.objects.filter(floor_id=floor_no and is_reserved==False)
+    positions_list = parking_slot.objects.filter(floor_id=floor_no and is_reserved=False)
     context = {
         'positions_list': positions_list
     }
