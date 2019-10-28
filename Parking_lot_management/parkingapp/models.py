@@ -18,7 +18,6 @@ class parkingLot(models.Model):
 
 
 class block(models.Model):
-<<<<<<< HEAD
     parking_lot_id=models.ForeignKey(parkingLot,on_delete=models.CASCADE)
     block_id=models.IntegerField(unique=True)
     is_block_full=models.BooleanField(default=False)
