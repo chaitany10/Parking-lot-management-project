@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib import messages
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers
@@ -50,8 +50,10 @@ def login_view(request):
             )
             login(request, user)
             if user is not None:
-                # request.session['alert_success'] = "Successfully logged in."
+                messages.success(request, 'Login Successful',extra_tags='alert')
                 return HttpResponseRedirect('/home/')
+            else:
+                messages.success(request, 'Login Unsuccessful')
     else:
         login_form = LoginForm()
     context = {}

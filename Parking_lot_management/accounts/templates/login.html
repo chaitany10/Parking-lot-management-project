@@ -5,7 +5,13 @@ Parking system|Log-in
 {% endblock %}
 {% load staticfiles %}
 {% block content %}
-
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="success alert">Login Successful</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 <!-- <canvas class="cavs"></canvas> -->
 <div  id="loginbg" style="width:100%;height: 100%;text-align: center;margin: 0 auto;position: absolute;"></div>
 <div>
