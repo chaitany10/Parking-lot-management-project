@@ -56,7 +56,7 @@ Parking system|Home
 
              {% endif%}
             {% if  user.is_authenticated and not user.is_superuser and not user.is_site_manager and not user.is_manager and User_info.car_booking_status or User_info.admin_bit  %}
-            <a class="normal_text" href="">Check Bill</a>
+            <a class="normal_text" href="{% url 'checkout'%}">Check Bill</a>
 
             {% endif %}
 

@@ -11,7 +11,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-
+import datetime
+from datetime import datetime
 
 def reserve(request, parking_slot_id, duration):
     if request.user.is_authenticated:
@@ -26,4 +27,8 @@ def reserve(request, parking_slot_id, duration):
         return HttpResponseRedirect(reverse('home'))
 
 def print_parking_slip(request, parking_slot_reservation):
-    bill = parking_slip()
+    if request.user.is_authenticated:
+        bill = parking_slip()
+        bill.actual_exit_time = datetime.now()
+
+
