@@ -25,7 +25,7 @@ Parking system|
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="{% url 'parking_slot_index' %}  /{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}</a>   </h4>
+                                <h4 style="padding-left: 150px; "> <a style="color:white" href="/parking_lot/block/floor/parking_slot/{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}</a>   </h4>
                             </td>
 
                             <td>

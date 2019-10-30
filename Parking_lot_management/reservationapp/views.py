@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 import datetime
 from datetime import datetime
 
-def reserve(request,parking_lot_no,block_no,floor_no, parking_slot_id, duration):
+def reserve(request,parking_lot_no,block_no,floor_no, parking_slot_id):
     if request.user.is_authenticated:
         parking_slot_reservation = parking_slot()
         user = request.user.username
