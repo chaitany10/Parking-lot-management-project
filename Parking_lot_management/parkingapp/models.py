@@ -54,4 +54,4 @@ class parking_slot(models.Model):
     class Meta:
         unique_together = (('floor_id', 'parking_slot_id'),)
     def __str__(self):
-        return str(self.parking_slot_id)
+        return str(self.parking_slot_id )

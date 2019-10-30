@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import parking_slot_reservation, parking_slip
 # Create your views here.
 from accounts.models import Customer
-from parkingapp.models import parking_slot
+from parkingapp.models import parking_lot,block,floor,parking_slot
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 import datetime
 from datetime import datetime
 
-def reserve(request, parking_slot_id, duration):
+def reserve(request,parking_lot_no,block_no,floor_no, parking_slot_id, duration):
     if request.user.is_authenticated:
         parking_slot_reservation = parking_slot()
         user = request.user.username

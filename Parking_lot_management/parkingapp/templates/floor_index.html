@@ -10,13 +10,13 @@ Parking system|
     <div id="windows1">
         <div style="height: 50px;"></div>
         <div id="loginbox" style=" border: 1px solid #f1f1f1;background-color: rgba(0,0,0, 0.4); padding: 20px;">
-               
+
             <h1  style="color:white ; margin-bottom: 50px;"> Select the Floor </h1>
                <!-- {% for rate in rates %}
                <h4>  {{ rate.pay_per_time }}</h4>
                 {% endfor %} -->
             <table class="table">
-                    <thead>                        
+                    <thead>
                             <i class="fas fa-warehouse" style="font-size: 50px; color: white ;float : left ; padding-bottom: 20px;padding-left: 170px;"></i>
                             <i class="fas fa-dollar-sign" style="font-size: 50px; color: white ;float : right ; padding-bottom: 20px;padding-right: 210px;"></i>
                     </thead>
@@ -25,19 +25,19 @@ Parking system|
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="parking_slot/{{ item.pk }}"> {{ item.floor_id}}</a>   </h4>
+                                <h4 style="padding-left: 150px; "> <a style="color:white" href="{% url 'parking_slot_index' %}  /{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}</a>   </h4>
                             </td>
-                            
-                            <td>                    
+
+                            <td>
                                 <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. 0/hour</h4>
                             </td>
                         </tr>
-                        
+
                         {% endfor %}
                     </tbody>
-            </table>                    
-        </div>        
-    </div>            
+            </table>
+        </div>
+    </div>
 </div>
 
 <!-- <div id="templatemo_banner_slide" class="container_wapper">

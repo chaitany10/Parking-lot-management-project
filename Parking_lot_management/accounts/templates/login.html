@@ -54,6 +54,14 @@ Parking system|Log-in
                         onclick="savePaw();" style="padding-top:0px;" />
                 </div>
             </div>
+            <script src="https://www.google.com/recaptcha/api.js?render=_reCAPTCHA_site_key"></script>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute('6LdMTMAUAAAAAHHnKEPZ7Yg1UiU4hVXPnyp2a3Lt', {action: 'homepage'}).then(function(token) {
+       ...
+    });
+});
+</script>
             <div style="height: 20px;"></div>
             <div class="form-actions">
                 <div style="width:86%;padding-left:8%;">
