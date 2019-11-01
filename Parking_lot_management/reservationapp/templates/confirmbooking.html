@@ -60,22 +60,26 @@ Parking system|
                     </td>
                     <td>
                         <form action="/reserve/{{parking_lot_no}}/{{block_no}}/{{floor_no}}/{{ parking_slot_no}}"
-                              method="post" name="DurationForm" id="loginForm" action="/">
+                              method="post" >
+                            {% csrf_token %}
+                            <div style="display: inline; margin-top: 30px;">
                             <input type="text" name="duration"
                                    placeholder="Please type in duration"/>
+                            <br><br>
+                            </div>
 
-
+                            <div style="display: inline; margin-left: 30px;">
+                        <span style="display: inline;"><input
+                                class="flip-link btn btn-info" id="to-recover"
+                                type="submit" value="Confirm"></span>
+                            </div>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
-            <div style="display: inline; margin-right: 30px;">
-                        <span style="display: inline;"><input
-                                class="flip-link btn btn-info" id="to-recover"
-                                type="submit" value="Confirm"></span>
-            </div>
+
         </div>
     </div>
 </div>
