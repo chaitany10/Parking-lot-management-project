@@ -18,8 +18,9 @@ from .models import Customer, Vehicle_Numbers, Regular_Customer, Cost
 def profile(request):
     if request.user.is_authenticated:
        customer = Customer.objects.get(customer_id=request.user)
-       regular = Regular_Customer.objects.filter(customer_id=request.user)
-       vehicle = Vehicle_Numbers.objects.get(customer_id=request.user)
+
+       regular = Regular_Customer.objects.filter(customer_id=customer)
+       vehicle = Vehicle_Numbers.objects.get(customer_id=customer)
        context = {
             'customer': customer,
             'regular' : regular,
