@@ -30,7 +30,9 @@ def profile(request):
         context = {
 
         }
-        return render(request, 'home.html', context)
+    return HttpResponseRedirect(reverse('login'))
+
+
 
 
 def home(request):
