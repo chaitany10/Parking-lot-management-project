@@ -16,7 +16,12 @@ from .models import Customer, Vehicle_Numbers
 
 def profile(request):
     if request.user.is_authenticated:
-        context={
+       customer = Customer.objects.get(customer_id=request.user)
+       context = {
+            'customer': customer
+        }
+    else:
+        context = {
 
         }
         return render(request,'profile.html',context)
