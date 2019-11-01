@@ -71,6 +71,7 @@ def login_view(request):
 
 @csrf_exempt
 def register(request):
+    context = {}
     if request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
     if request.method == 'POST':
@@ -109,9 +110,9 @@ def register(request):
         print("This place reached " + str(reg_form.errors))
     else:
         reg_form = RegForm()
-        context = {}
-        context['reg_form'] = reg_form
-        return render(request, 'register.html', context)
+
+    context['form'] = reg_form
+    return render(request, 'register.html', context)
 
 
 # @login_required

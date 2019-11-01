@@ -24,9 +24,9 @@ class LoginForm(forms.Form):
 
 
 class RegForm(forms.Form):
-    firstname = forms.CharField(label='firstname', max_length=30, min_length=3, widget=forms.TextInput(
+    firstname = forms.CharField(label='firstname', max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter firstname'}))
-    lastname = forms.CharField(label='lastname', max_length=30, min_length=3, widget=forms.TextInput(
+    lastname = forms.CharField(label='lastname', max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter lastname'}))
     username = forms.CharField(label='username', max_length=30, min_length=3, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter 3-30 usernames'}))
@@ -43,7 +43,7 @@ class RegForm(forms.Form):
 
     def clean_username(self):
         print("inside clean_username")
-        username = self.cleaned_data['username']
+        username = self.cleaned_data.get('username')
         # print(username)
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError('Username already exists')
@@ -52,7 +52,7 @@ class RegForm(forms.Form):
 
     def clean_email(self):
         print("inside email")
-        email = self.cleaned_data['email']
+        email = self.cleaned_data.get('email')
         print(email)
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('email already exits')
@@ -61,12 +61,16 @@ class RegForm(forms.Form):
         return email
 
     def clean_password_again(self):
-        password = self.cleaned_data['password']
-        password_again = self.cleaned_data['password_again']
+        password = self.cleaned_data.get('password')
+        password_again = self.cleaned_data.get('password_again')
         if password != password_again:
             raise forms.ValidationError('Inconsistent password entered twice')
 
         print("clean_password_again completed")
 
         return password_again
+
+
+
+
 
