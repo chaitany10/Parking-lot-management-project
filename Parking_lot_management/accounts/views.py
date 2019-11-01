@@ -14,6 +14,12 @@ from .models import Customer, Vehicle_Numbers
 
 # from tariff.models import Tariffs
 
+def profile(request):
+    if request.user.is_authenticated:
+        context={
+
+        }
+        return render(request,'profile.html',context)
 
 def home(request):
     # print("HI")
