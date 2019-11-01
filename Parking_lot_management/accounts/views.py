@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
-from .models import Customer, Vehicle_Numbers
+from .models import Customer, Vehicle_Numbers, Regular_Customer, Cost
 
 
 # from tariff.models import Tariffs
@@ -18,8 +18,12 @@ from .models import Customer, Vehicle_Numbers
 def profile(request):
     if request.user.is_authenticated:
        customer = Customer.objects.get(customer_id=request.user)
+       regular = Regular_Customer.objects.filter(customer_id=request.user)
+       vehicle = Vehicle_Numbers.objects.get(customer_id=request.user)
        context = {
-            'customer': customer
+            'customer': customer,
+            'regular' : regular,
+            'vehicle' : vehicle
         }
        return render(request, 'profile.html', context)
     else:
