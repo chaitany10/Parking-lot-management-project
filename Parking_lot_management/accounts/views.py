@@ -26,7 +26,7 @@ def profile(request):
         context = {
 
         }
-        return render(request, 'profile.html', context)
+        return render(request, 'home.html', context)
 
 
 def home(request):
