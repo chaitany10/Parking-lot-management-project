@@ -1,7 +1,7 @@
 # Create your views here.
 import datetime
 from datetime import datetime
-
+from .forms import DurationForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
@@ -24,11 +24,13 @@ def confirmbooking(request, parking_lot_no, block_no, floor_no, parking_slot_no)
         # parking_slot_reservation.parking_slot_id = final_parking_slot
         # # parking_slot_reservation.duration_in_minutes = duration
         # parking_slot_reservation.save()
+        form = DurationForm()
         context = {
             'parking_lot_no': parking_lot_no,
             'block_no': block_no,
             'floor_no': floor_no,
             'parking_slot_no': parking_slot_no,
+            'form': form
 
         }
         return render(request, 'confirmbooking.html', context)

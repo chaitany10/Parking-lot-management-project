@@ -10,57 +10,84 @@ Parking system|
     <div id="windows1">
         <div style="height: 50px;"></div>
         <div id="loginbox" style=" border: 1px solid #f1f1f1;background-color: rgba(0,0,0, 0.4); padding: 20px;">
-               
-            <h1  style="color:white ; margin-bottom: 50px;"> Confirm your Booking </h1>
-               <!-- {% for rate in rates %}
-               <h4>  {{ rate.pay_per_time }}</h4>
-                {% endfor %} -->
+
+            <h1 style="color:white ; margin-bottom: 50px;"> Confirm your Booking </h1>
+            <!-- {% for rate in rates %}
+            <h4>  {{ rate.pay_per_time }}</h4>
+             {% endfor %} -->
             <table class="table">
 
-                    <tbody>
-                        <tr>
-                            <td>
-                                <h5 style="color:white">Parking Lot</h5>
-                            </td>
-                            
-                            <td>                    
-                                <h5 style="color:white">{{parking_lot_no}}</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="color:white">Block No</h5>
-                            </td>
+                <tbody>
+                <tr>
+                    <td>
+                        <h5 style="color:white">Parking Lot</h5>
+                    </td>
 
-                            <td>
-                                <h5 style="color:white">{{block_no}}</h5>
-                            </td>
-                        </tr><tr>
-                            <td>
-                                <h5 style="color:white">Floor No</h5>
-                            </td>
+                    <td>
+                        <h5 style="color:white">{{parking_lot_no}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="color:white">Block No</h5>
+                    </td>
 
-                            <td>
-                                <h5 style="color:white">{{floor_no}}</h5>
-                            </td>
-                        </tr><tr>
-                            <td>
-                                <h5 style="color:white">Parking Slot</h5>
-                            </td>
+                    <td>
+                        <h5 style="color:white">{{block_no}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="color:white">Floor No</h5>
+                    </td>
 
-                            <td>
-                                <h5 style="color:white">{{parking_slot_no}}</h5>
-                            </td>
-                        </tr>
+                    <td>
+                        <h5 style="color:white">{{floor_no}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="color:white">Parking Slot</h5>
+                    </td>
 
-                    </tbody>
+                    <td>
+                        <h5 style="color:white">{{parking_slot_no}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="color:white">Duration(in hours)</h5>
+                    </td>
+                    <td>
+                        <form action="" method="post" name="DurationForm" id="loginForm">
+
+
+
+                            <div class="control-group">
+                                <div class="controls">
+                                    <div class="main_input_box">
+
+                                        </span><input type="text" name="duration"
+                                                      placeholder="Please type in duration"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
             </table>
+
             <div style="display: inline; margin-right: 30px;">
-                        <span style="display: inline;"><input onclick="location.href='/reserve/{{parking_lot_no}}/{{block_no}}/{{floor_no}}/{{ parking_slot_no}}'" class="flip-link btn btn-info" id="to-recover"
-                        type="submit" value="Confirm"></span>
-                    </div>
-        </div>        
-    </div>            
+                        <span style="display: inline;"><input
+                                onclick="location.href='/reserve/{{parking_lot_no}}/{{block_no}}/{{floor_no}}/{{ parking_slot_no}}'"
+                                class="flip-link btn btn-info" id="to-recover"
+                                type="submit" value="Confirm"></span>
+            </div>
+        </div>
+    </div>
 </div>
 
 
