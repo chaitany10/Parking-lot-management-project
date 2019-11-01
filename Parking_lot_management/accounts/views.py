@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -6,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
+
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers
@@ -24,7 +25,8 @@ def profile(request):
         context = {
 
         }
-        return render(request,'profile.html',context)
+        return render(request, 'profile.html', context)
+
 
 def home(request):
     # print("HI")
@@ -61,7 +63,7 @@ def login_view(request):
             )
             login(request, user)
             if user is not None:
-                messages.success(request, 'Login Successful',extra_tags='alert')
+                messages.success(request, 'Login Successful', extra_tags='alert')
                 return HttpResponseRedirect('/home/')
             else:
                 messages.success(request, 'Login Unsuccessful')
@@ -86,7 +88,7 @@ def register(request):
             email = reg_form.cleaned_data['email']
             password = reg_form.cleaned_data['password']
             # Create user
-            user = User.objects.create_user(username=username, email=email,password= password)
+            user = User.objects.create_user(username=username, email=email, password=password)
             print(user.username)
             user1 = authenticate(
                 username=reg_form.cleaned_data['username'],
