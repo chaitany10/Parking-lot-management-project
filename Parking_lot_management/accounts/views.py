@@ -17,12 +17,17 @@ from .models import Customer, Vehicle_Numbers
 
 def profile(request):
     if request.user.is_authenticated:
+       customer = Customer.objects.get(customer_id=request.user)
+       context = {
+            'customer': customer
+        }
+       return render(request, 'profile.html', context)
+    else:
         context = {
 
         }
-        return render(request, 'profile.html', context)
-    else:
-        return HttpResponseRedirect(reverse('login'))
+    return HttpResponseRedirect(reverse('login'))
+
 
 
 
