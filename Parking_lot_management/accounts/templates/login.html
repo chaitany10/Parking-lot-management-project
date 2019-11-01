@@ -26,6 +26,9 @@ Parking system|Log-in
                     Enter your credentials to access your account
                 </h3>
             </div>
+            {% if login_form.errors %}
+            <h5 style="color: red"> Username or password Incorrect</h5>
+          {% endif %}
             <div style="height: 30px;"></div>
             <div class="control-group">
                 <div class="controls">

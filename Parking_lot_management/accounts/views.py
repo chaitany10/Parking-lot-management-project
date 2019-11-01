@@ -21,6 +21,9 @@ def profile(request):
 
         }
         return render(request, 'profile.html', context)
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
 
 
 def home(request):
