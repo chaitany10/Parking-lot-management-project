@@ -59,19 +59,10 @@ Parking system|
                         <h5 style="color:white">Duration(in hours)</h5>
                     </td>
                     <td>
-                        <form action="" method="post" name="DurationForm" id="loginForm">
-
-
-
-                            <div class="control-group">
-                                <div class="controls">
-                                    <div class="main_input_box">
-
-                                        </span><input type="text" name="duration"
-                                                      placeholder="Please type in duration"/>
-                                    </div>
-                                </div>
-                            </div>
+                        <form action="/reserve/{{parking_lot_no}}/{{block_no}}/{{floor_no}}/{{ parking_slot_no}}"
+                              method="post" name="DurationForm" id="loginForm" action="/">
+                            <input type="text" name="duration"
+                                   placeholder="Please type in duration"/>
 
 
                         </form>
@@ -82,7 +73,6 @@ Parking system|
 
             <div style="display: inline; margin-right: 30px;">
                         <span style="display: inline;"><input
-                                onclick="location.href='/reserve/{{parking_lot_no}}/{{block_no}}/{{floor_no}}/{{ parking_slot_no}}'"
                                 class="flip-link btn btn-info" id="to-recover"
                                 type="submit" value="Confirm"></span>
             </div>
