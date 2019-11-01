@@ -5,82 +5,104 @@ Parking system|Register
 {% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div  id="regbg" style="width:100%;height: 100%;text-align: center;margin: 0 auto;position: absolute;"></div>
+<div id="regbg" style="width:100%;height: 100%;text-align: center;margin: 0 auto;position: absolute;"></div>
 <div>
-<div id="windows1">
-     <div style="height: 40px;"></div>
-<div id="loginbox" >
-            {% if form.errors %}
-            <p>Your username or email or car number is already taken. Please try again.</p>
-          {% endif %}
-        
-        <form action="" method="post" name="RegForm" id="RegForm">
-            <!-- {% csrf_token %} -->
-            {% csrf_token %}
-            <div class="control-group normal_text">					
-                <h3 style="text-align:center";style="font-family:verdana;color:white;font-size:40px;">
-                    Fill out the form and Register
-                </h3>
+    <div id="windows1">
+        <div style="height: 40px;"></div>
+        <div id="loginbox">
 
-            </div>
-            <div style="height: 10px;"></div>
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
+
+            <form action="" method="post" name="RegForm" id="RegForm">
+                <!-- {% csrf_token %} -->
+                {% csrf_token %}
+                <div class="control-group normal_text">
+                    <h3 style="text-align:center" ;style="font-family:verdana;color:white;font-size:40px;">
+                        Fill out the form and Register
+                    </h3>
+
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
                         <span class="add-on bg_lg">
-                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                        </span><input type="text" name="username" required id="id_username" id="loginname" value="" placeholder="Please type in your username" />
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="username" required id="id_username" id="loginname" value=""
+                                      placeholder="Please type in your username"/>
+
+                            <strong style="color:white">{{ form.errors.username }}</strong>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
                         <span class="add-on bg_lg">
-                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                        </span><input type="text" name="firstname" required id="id_firstname" id="firstname" value="" placeholder="Please type in your firstname" />
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="firstname" required id="id_firstname" id="firstname" value=""
+                                      placeholder="Please type in your firstname"/>
+
+                            <strong style="color:white">{{ form.errors.firstname }}</strong>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
                         <span class="add-on bg_lg">
-                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                        </span><input type="text" name="lastname" required id="id_lastname" id="lastname" value="" placeholder="Please type in your lastname" />
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="lastname" required id="id_lastname" id="lastname" value=""
+                                      placeholder="Please type in your lastname"/>
+
+                            <strong style="color:white">{{ form.errors.lastname }}</strong>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
                         <span class="add-on bg_lg">
-                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                        </span><input type="text" name="user_phone" required id="id_user_phone" id="user_phone" value="" placeholder="Please type in your phone number" />
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="user_phone" required id="id_user_phone" id="user_phone" value=""
+                                      placeholder="Please type in your phone number"/>
+
+                            <strong style="color:white">{{ form.errors.user_phone }}</strong>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
                         <span class="add-on bg_lg">
-                        <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                        </span><input type="text" name="car_number" required id="id_car_number" id="car_number" value="" placeholder="Please type in your Car Number" />
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="car_number" required id="id_car_number" id="car_number" value=""
+                                      placeholder="Please type in your Car Number"/>
+
+                            <strong style="color:white">{{ form.errors.car_number }}</strong>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
-            <div class="control-group">
+                <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">
                             <span class="add-on bg_lg">
-                            <i><img height="37" src="{% static '/login/user.png' %}" /></i>
-                            </span><input type="email" name="email" required id="id_email" id="id_email" value="" placeholder="please input your email" />
+                            <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                            </span><input type="email" name="email" required id="id_email" id="id_email" value=""
+                                          placeholder="please input your email"/>
+
+                            <strong style="color:white">{{ form.errors.email }}</strong>
+
                         </div>
                     </div>
                 </div>
@@ -93,46 +115,54 @@ Parking system|Register
                             </div>
                         </div>
                 </div> -->
-            <div class="control-group">
-                <div class="controls">
-                    <div class="main_input_box">
-                        <span class="add-on bg_ly">
-                        <i><img height="37" src="{% static '/login/suo.png' %}" /></i>
-                        </span><input type="password" name="password" required id="id_password" id="password" placeholder="Please enter your password" class="keypad" keypadMode="full" allowKeyboard="true" value=""/>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
+                <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">
-                            <span class="add-on bg_ly">
-                            <i><img height="37" src="{% static '/login/suo.png' %}" /></i>
-                            </span><input type="password" name="password_again" id="id_password_again" required placeholder="Enter the password again" class="keypad" keypadMode="full" allowKeyboard="true" value=""/>
+                        <span class="add-on bg_ly">
+                        <i><img height="37" src="{% static '/login/suo.png' %}"/></i>
+                        </span><input type="password" name="password" required id="id_password" id="password"
+                                      placeholder="Please enter your password" class="keypad" keypadMode="full"
+                                      allowKeyboard="true" value=""/>
                         </div>
                     </div>
                 </div>
-            
-            <div style="float:right;padding-right:10%;position: relative; top: -5px;">
-                <div style="float: left;margin-top:3px;margin-right:2px;">
-                    <font color="white">Remember password</font>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly">
+                            <i><img height="37" src="{% static '/login/suo.png' %}"/></i>
+                            </span><input type="password" name="password_again" id="id_password_again" required
+                                          placeholder="Enter the password again" class="keypad" keypadMode="full"
+                                          allowKeyboard="true" value=""/>
+
+                            <strong style="color:white">{{ form.errors.password_again }}</strong><br>
+
+                        </div>
+                    </div>
                 </div>
-                <div style="float: left;">
-                    <input name="form-field-checkbox" id="saveid" type="checkbox"
-                        onclick="savePaw();" style="padding-top:0px;" />
+
+                <div style="float:right;padding-right:10%;position: relative; top: -5px;">
+                    <div style="float: left;margin-top:3px;margin-right:2px;">
+                        <font color="white">Remember password</font>
+                    </div>
+                    <div style="float: left;">
+                        <input name="form-field-checkbox" id="saveid" type="checkbox"
+                               onclick="savePaw();" style="padding-top:0px;"/>
+                    </div>
                 </div>
-            </div>
-            <div style="height: 20px;"></div>
-            <div class="form-actions">
-                <div style="width:86%; padding-left: 40px; ">                    
-                    <span style="height: 20px; width: 70px;"><input onclick="check();" class="flip-link btn btn-info" id="to-recover" type="submit" value="Register"></span>
+                <div style="height: 20px;"></div>
+                <div class="form-actions">
+                    <div style="width:86%; padding-left: 40px; ">
+                        <span style="height: 20px; width: 70px;"><input onclick="check();"
+                                                                        class="flip-link btn btn-info" id="to-recover"
+                                                                        type="submit" value="Register"></span>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-    </div>
-    
-    
-    
+
+
 </div>
 
 <!-- <form action="" method="POST">
