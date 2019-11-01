@@ -1,11 +1,19 @@
+
 <!DOCTYPE HTML>
 <html>
 	<head>
 			{% load staticfiles %}
-		<title>{cutomer.firstname}</title>
+			<div class="topnav">
+				<a class="active" href="/profile">My Profile</a>
+				<a href="../home">Home</a>
+				<a href="#contact">Contact</a>
+				<a href="#about">About</a>
+			  </div>
+		<title>{{customer.firstname}} {{customer.lastname}}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'profile/assets/css/main.css'%}" />
+		<link rel="stylesheet" href="{% static '/login/keypad/navbar.css' %}"/>
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -16,10 +24,10 @@
 				<!-- One -->
 					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
 						<div class="content">
-							<h1>Story</h1>
-							<p class="major">A (modular, highly tweakable) responsive one-page template designed by <a href="https://html5up.net">HTML5 UP</a> and released for free under the <a href="https://html5up.net/license">Creative Commons</a>.</p>
+							<h1>{{customer.firstname}} {{customer.lastname}}</h1>
+							<p class="major"><ul class="actions stacked"><li> {{customer.firstname}} {{customer.lastname}}</li></ul> <a href="https://html5up.net"></a><a href="https://html5up.net/license"></a></p>
 							<ul class="actions stacked">
-								<li><a href="#first" class="button big wide smooth-scroll-middle">Get Started</a></li>
+								<!-- <li><a href="#first" class="button big wide smooth-scroll-middle">Get Started</a></li> -->
 							</ul>
 						</div>
 						<div class="image">
@@ -324,7 +332,7 @@
 					</section -->
 
 				<!-- Footer -->
-					<footer class="wrapper style1 align-center">
+					<!-- <footer class="wrapper style1 align-center">
 						<div class="inner">
 							<ul class="icons">
 								<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
@@ -335,7 +343,7 @@
 							</ul>
 							
 						</div>
-					</footer>
+					</footer> -->
 
 			</div>
 
@@ -347,6 +355,7 @@
 			<script src="{% static 'profile/assets/js/breakpoints.min.js'%}"></script>
 			<script src="{% static 'profile/assets/js/util.js'%}"></script>
 			<script src="{% static 'profile/assets/js/main.js'%}"></script>
+							
 
 	</body>
 </html>

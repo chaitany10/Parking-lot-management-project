@@ -21,6 +21,7 @@ def profile(request):
        context = {
             'customer': customer
         }
+       return render(request, 'profile.html', context)
     else:
         context = {
 
