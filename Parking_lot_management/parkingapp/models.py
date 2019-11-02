@@ -14,7 +14,7 @@ class parkingLot(models.Model):
     building_no = models.IntegerField(validators=[MinValueValidator(1)])
     street_name = models.CharField(max_length=30)
     cost = models.IntegerField(default= 10)
-    name = models.CharField(max_length=20, default='parkingLot)
+    name = models.CharField(max_length=20)
     def __str__(self):
         return str(self.parking_lot_id)
 
