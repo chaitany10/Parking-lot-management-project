@@ -5,6 +5,7 @@ from parkingapp.models import parking_slot
 
 # Create your models here.
 class parking_slot_reservation(models.Model):
+    cost_per_hour = models.IntegerField()
     id = models.AutoField(primary_key=True)
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     start_time_stamp = models.DateTimeField(auto_now=True)

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from parkingapp.models import parking_slot
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from reservationapp.models import parking_slot_reservation, parking_slip
@@ -22,7 +23,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 
-
+import datetime
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -182,13 +183,20 @@ def checkout(request):
     else:
         customer = Customer.objects.get(customer_id=request.user)
         reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
+        reservation.is_active = False
+        cost_per_hour = reservation.cost_per_hour
+        parking_slot1 = parking_slot.objects.get(id = reservation.parking_slot_id.id)
+        parking_slot1.is_reserved=False
+        parking_slot1.save()
+        total_duration = 1
+        total_cost = total_duration*cost_per_hour
 
-    UserInfolist = UserInfo.objects.values()
+        context = {
+            'reservation':reservation,
+            'customer':customer,
+            'total_cost':total_cost
+        }
+        reservation.save()
 
-    # print(UserInfolist)
-    context = {
-        'UserInfolist': UserInfolist
-    }
-
-    return render(request, 'Checkoutuser.html', context)
+        return render(request, 'checkout.html', context)
 
