@@ -23,6 +23,7 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
 
+
 class RegForm(forms.Form):
     firstname = forms.CharField(label='firstname', max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter firstname'}))

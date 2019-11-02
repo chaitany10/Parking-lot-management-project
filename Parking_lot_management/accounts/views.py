@@ -1,3 +1,8 @@
+import json
+import urllib
+
+import urllib3
+from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -10,29 +15,27 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
-from .models import Customer, Vehicle_Numbers, Regular_Customer, Cost
+from .models import Customer, Vehicle_Numbers, Regular_Customer
 
 
 # from tariff.models import Tariffs
 
 def profile(request):
     if request.user.is_authenticated:
-       customer = Customer.objects.get(customer_id=request.user)
-       regular = Regular_Customer.objects.filter(customer_id=customer)
-       vehicle = Vehicle_Numbers.objects.get(customer_id=customer)
-       context = {
+        customer = Customer.objects.get(customer_id=request.user)
+        regular = Regular_Customer.objects.filter(customer_id=customer)
+        vehicle = Vehicle_Numbers.objects.get(customer_id=customer)
+        context = {
             'customer': customer,
-            'regular' : regular,
-            'vehicle' : vehicle
+            'regular': regular,
+            'vehicle': vehicle
         }
-       return render(request, 'profile.html', context)
+        return render(request, 'profile.html', context)
     else:
         context = {
 
         }
     return HttpResponseRedirect(reverse('login'))
-
-
 
 
 def home(request):
@@ -64,16 +67,30 @@ def login_view(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            user = authenticate(
-                username=login_form.cleaned_data['username'],
-                password=login_form.cleaned_data['password']
-            )
-            login(request, user)
-            if user is not None:
-                messages.success(request, 'Login Successful', extra_tags='alert')
-                return HttpResponseRedirect('/home/')
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+
+            if result['success']:
+                user = authenticate(
+                    username=login_form.cleaned_data['username'],
+                    password=login_form.cleaned_data['password']
+                )
+                login(request, user)
+                if user is not None:
+                    return HttpResponseRedirect('/home/')
+
+
             else:
-                messages.success(request, 'Login Unsuccessful')
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+
     else:
         login_form = LoginForm()
     context = {}
