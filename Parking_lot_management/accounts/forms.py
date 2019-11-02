@@ -41,7 +41,8 @@ class RegForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': ' Phone Number'}))
     car_number = forms.CharField(label=u'number plate', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Please enter the license plate number'}))
-
+    vehicle_height = forms.FloatField(label=u'vehicle_height', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter vehicle height in meters'}))
     def clean_username(self):
         print("inside clean_username")
         username = self.cleaned_data.get('username')

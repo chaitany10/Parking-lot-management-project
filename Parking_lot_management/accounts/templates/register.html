@@ -92,6 +92,20 @@ Parking system|Register
                     </div>
                 </div>
 
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                        <span class="add-on bg_lg">
+                        <i><img height="37" src="{% static '/login/user.png' %}"/></i>
+                        </span><input type="text" name="vehicle_height" required id="vehicle_height" id="vehicle_height" value=""
+                                      placeholder="Please enter vehicle height in meters"/>
+
+                            <strong style="color:white">{{ form.errors.vehicle_height }}</strong>
+
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="control-group">
                     <div class="controls">

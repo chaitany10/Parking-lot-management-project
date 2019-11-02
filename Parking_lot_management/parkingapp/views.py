@@ -47,7 +47,7 @@ def floor_index(request, parking_lot_no, block_no):
 
 def parking_slot_index(request, parking_lot_no, block_no, floor_no):
     customer  = Customer.objects.get(username = request.user)
-    vehicle = Vehicle_Numbers.objects.filter(customer_id = customer)
+    vehicle = Vehicle_Numbers.objects.filter(customer_id = customer).first()
     user_vehicle_height = vehicle.vehicle_height
     positions_list = parking_slot.objects.filter(floor_id=floor_no, is_reserved=False, height__gte = user_vehicle_height)
 
