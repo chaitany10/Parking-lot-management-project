@@ -4,14 +4,11 @@ from django.db import models
 # Create your models here.
 
 class Customer(models.Model):
-    GENDER = (
-        ('M', "Male"),
-        ('F', "Female"),
-    )
+
     customer_id = models.CharField(max_length=20)
     firstname = models.CharField(blank=True, max_length=50)
     lastname = models.CharField(blank=True, max_length=50)
-    sex = models.CharField(blank=True, max_length=1, choices=GENDER)
+
     phone = models.CharField(blank=True, max_length=10)
 
     def get_populated_fields(self):
@@ -46,6 +43,7 @@ class Regular_Customer(models.Model):
 class Vehicle_Numbers(models.Model):
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     vehicle_no = models.CharField(max_length=20)
+    vehicle_height = models.FloatField(default=1.5)
 
 
 class Cost(models.Model):

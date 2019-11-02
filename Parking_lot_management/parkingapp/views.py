@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from .models import parkingLot, block, floor, parking_slot
-
+from accounts.models import Customer, Vehicle_Numbers
 # from users.models import UserInfo
 # from tariff.models import Tariffs,Tickets,Rates
 User = get_user_model()
@@ -46,7 +46,10 @@ def floor_index(request, parking_lot_no, block_no):
 
 
 def parking_slot_index(request, parking_lot_no, block_no, floor_no):
-    positions_list = parking_slot.objects.filter(floor_id=floor_no, is_reserved=False)
+    customer  = Customer.objects.get(username = request.user)
+    vehicle = Vehicle_Numbers.objects.filter(customer_id = customer)
+    user_vehicle_height = vehicle.vehicle_height
+    positions_list = parking_slot.objects.filter(floor_id=floor_no, is_reserved=False, height__gte = user_vehicle_height)
 
     context = {
         'positions_list': positions_list,
