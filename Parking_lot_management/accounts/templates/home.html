@@ -36,9 +36,9 @@ Parking system|Home
                     <a class="normal_text" href="{% url 'register' %}">Register</a>
                 </div>
                 {% if current_booking%}
-                    <div class="buttons">
+                <div class="buttons">
                     <a class="normal_text" href="{% url 'checkout' %}">Checkout</a>
-                    </div>
+                </div>
                 {% endif %}
             </div>
             {% endif %}
@@ -49,22 +49,9 @@ Parking system|Home
             <!-- <a class="normal_text" href="users/Checkoutuser" type="button" >Checkout User</a>       -->
             <a class="normal_text" href="/admin/">Visit Database</a>
 
-            {% endif %}
-            {% if user.is_site_manager %}
-            <a class="normal_text" href="" type="button">Checkout User</a>
-            {% endif %}
-
-            {% if user.is_accountant %}
-            <a class="normal_text" href="" type="button">Check Accounts</a>
-
-            <!-- <a class="normal_text" href="{% url 'accounts_index' %}">Check Accounts</a> -->
 
             {% endif%}
-            {% if user.is_authenticated and not user.is_superuser and not user.is_site_manager and not user.is_manager
-            and User_info.car_booking_status or User_info.admin_bit %}
-            <a class="normal_text" href="{% url 'checkout'%}">Check Bill</a>
 
-            {% endif %}
 
             <div>
 
@@ -72,12 +59,11 @@ Parking system|Home
             {% if user.is_authenticated %}
             <div style="height: 50px; margin-top: 20px;">
                 <div style="display: inline;text-align: center; background: rgba(0,0,0, 0.4); padding: 10px 5px;margin-right: 40px;border: 1px solid #f1f1f1;">
-                    {% if user.is_superuser or user.is_site_manager%}
+                    {% if user.is_superuser%}
                     <a class="normal_text" href="/parking_lot" type="button">Check Occupancy</a>
                     {% endif %}
-                    {% if user.is_authenticated and not user.is_superuser and not user.is_site_manager and not
-                    user.is_accountant and not User_info.car_booking_status %}
-                    {{ user.is_manager }} {{ user.is_accountant }}
+                    {% if user.is_authenticated and not user.is_superuser and current_booking==False %}
+
                     <!-- <p class="normal_text">Current remaining parking spaces:<b> {{ car_pos_num }} </b>个</p> -->
                     <a class="normal_text" href="/parking_lot" type="button">Booking parking space</a>
                     {% endif %}
