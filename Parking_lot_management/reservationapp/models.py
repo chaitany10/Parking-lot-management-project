@@ -11,7 +11,7 @@ class parking_slot_reservation(models.Model):
     duration_in_minutes = models.IntegerField()
     booking_date = models.DateField(auto_now=True)
     parking_slot_id = models.ForeignKey(parking_slot, on_delete=models.CASCADE)
-
+    is_active = models.BooleanField(default=True)
 
 class parking_slip(models.Model):
     id = models.AutoField(primary_key=True)

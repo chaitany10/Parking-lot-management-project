@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-
+from reservationapp.models import parking_slot_reservation, parking_slip
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers, Regular_Customer
@@ -65,12 +65,19 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
+    current_booking = True
+    customer = Customer.objects.get(customer_id= request.user)
+    reservation = parking_slot_reservation.objects.get(customer_id = customer, is_active = True )
+    if reservation is None:
+        current_booking = False
+
     if request.user.is_authenticated and not request.user.is_superuser:
         print(request.user)
 
         customer = Customer.objects.get(customer_id=request.user)
         context = {
-            'customer': customer
+            'customer': customer,
+            'current_booking':current_booking
         }
     else:
         context = {
@@ -163,48 +170,25 @@ def register(request):
     return render(request, 'register.html', context)
 
 
-# @login_required
-# def user_detail(request):
-#     if request.method == 'POST':
-#         user_form = UserDetailForm(request.POST)
-#         if user_form.is_valid() and (request.user is not None):
-#             # Add user information
-#             # print("Hello")
-#             user_info = UserInfo()
-#             # print("Hi")
-#             user_info.user_name = request.user.username
-#             # user_info.user_name = user_form.cleaned_data['user_name']
-#             # user_info.user_first_name= user_form.cleaned_data['user_first_name']
-#             user_info.user_phone = user_form.cleaned_data['user_phone']
-#             user_info.car_number = user_form.cleaned_data['car_number']
-#             user_info.car_type = user_form.cleaned_data['car_type']
-#             # user_info.car_color = user_form.cleaned_data['car_color']
-#             # user_info.car_kind = user_form.cleaned_data['car_kind']
-#             user_info.save()
-#         return redirect(request.GET.get('from', reverse('home')))
-#     else:
-#         user_form = UserDetailForm()
-#     context = {}
-#     context['user_form'] = user_form
-#     return render(request, 'user_detail.html', context)
-#
-#
 @login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('home'))
 
-#
-# def Checkoutuser(request):
-#     if not request.user.is_site_manager:
-#         return redirect('/users/home')
-#
-#     UserInfolist = UserInfo.objects.values()
-#
-#     # print(UserInfolist)
-#     context = {
-#         'UserInfolist': UserInfolist
-#     }
-#
-#     return render(request, 'Checkoutuser.html', context)
-#
+
+def checkout(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/home/')
+    else:
+        customer = Customer.objects.get(customer_id=request.user)
+        reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
+
+    UserInfolist = UserInfo.objects.values()
+
+    # print(UserInfolist)
+    context = {
+        'UserInfolist': UserInfolist
+    }
+
+    return render(request, 'Checkoutuser.html', context)
+
