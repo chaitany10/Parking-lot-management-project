@@ -25,11 +25,11 @@ Parking system|
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.parking_lot_id}}</a>   </h4>
+                                <h4 style="padding-left: 150px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.name}}<br>{{item.street_name}}</a>   </h4>
                             </td>
                             
                             <td>                    
-                                <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. 0/hour</h4>
+                                <h4 style="color:white ; float: right ; padding-right: 150px;">{{item.cost}} </h4>
                             </td>
                         </tr>
                         
