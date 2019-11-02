@@ -1,28 +1,20 @@
 # Create your views here.
 import datetime
 from datetime import datetime
-
+from accounts.models import Customer
+from parkingapp.models import parkingLot,block,floor,parking_slot
 from django.http import HttpResponseRedirect
 # Create your views here.
 from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import DurationForm
-from .models import parking_slip
+from .models import parking_slip,parking_slot_reservation
 
 
 def confirmbooking(request, parking_lot_no, block_no, floor_no, parking_slot_no):
     if request.user.is_authenticated:
-        # final_parking_slot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
-        # final_parking_slot = block.objects.get(block_id=block_no, parking_lot_id=final_parking_slot)
-        # final_parking_slot = floor.objects.get(floor_id=floor_no, block_id=final_parking_slot)
-        # final_parking_slot = parking_slot.objects.get(parking_slot_id=parking_slot_id, floor_id=final_parking_slot)
-        # final_parking_slot.is_reserved = True
-        # user = request.user.username
-        # parking_slot_reservation.customer_id = user
-        # parking_slot_reservation.parking_slot_id = final_parking_slot
-        # # parking_slot_reservation.duration_in_minutes = duration
-        # parking_slot_reservation.save()
+
         form = DurationForm()
         context = {
             'parking_lot_no': parking_lot_no,
@@ -43,16 +35,18 @@ def reserve(request, parking_lot_no, block_no, floor_no, parking_slot_no):
         if request.method == 'POST':
             form = DurationForm(request.POST)
             duration = int(request.POST.get('duration', None))
-            # final_parking_slot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
-            # final_parking_slot = block.objects.get(block_id=block_no, parking_lot_id=final_parking_slot)
-            # final_parking_slot = floor.objects.get(floor_id=floor_no, block_id=final_parking_slot)
-            # final_parking_slot = parking_slot.objects.get(parking_slot_id=parking_slot_id, floor_id=final_parking_slot)
-            # final_parking_slot.is_reserved = True
-            # user = request.user.username
-            # parking_slot_reservation.customer_id = user
-            # parking_slot_reservation.parking_slot_id = final_parking_slot
-            # # parking_slot_reservation.duration_in_minutes = duration
-            # parking_slot_reservation.save()
+            parking_lot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
+            block1 = block.objects.get(parking_lot_id=parking_lot, id=block_no)
+            floor1 = floor.objects.get(id=floor_no, block_id=block1)
+            final_parking_slot = parking_slot.objects.get(id=parking_slot_no, floor_id=floor1)
+            final_parking_slot.is_reserved = True
+            final_parking_slot.save()
+            customer = Customer.objects.get(customer_id=request.user)
+            parking_slot_reservation1 = parking_slot_reservation()
+            parking_slot_reservation1.customer_id = customer
+            parking_slot_reservation1.parking_slot_id = final_parking_slot
+            parking_slot_reservation1.duration_in_minutes = duration
+            parking_slot_reservation1.save()
 
             context = {
                 'parking_lot_no': parking_lot_no,

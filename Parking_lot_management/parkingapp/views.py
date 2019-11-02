@@ -17,11 +17,11 @@ def parking_lot_index(request):  # ,site_num):
     positions_list = parkingLot.objects.filter()  # (position_status=True)
     # for rate in rates:
     #     print(rate.pay_per_time)
-    zipped_data = zip(positions_list)
+
     context = {
         # 'rates': rates,
         'positions_list': positions_list,
-        'zipped_data': zipped_data
+
     }
     return render(request, 'parking_lot_index.html', context)
 

@@ -80,7 +80,7 @@ MESSAGE_TAGS = {
 }
 WSGI_APPLICATION = 'Parking_lot_management.wsgi.application'
 
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LdMTMAUAAAAAFUnBAHSTfx6PRm72ijIWAGbJOuW'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfztMAUAAAAAOfJi_6QaNcb5Yv_ct_sHJeYrk3x'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

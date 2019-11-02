@@ -7,8 +7,8 @@ from .models import parkingLot, block, floor, parking_slot
 @admin.register(parkingLot)
 class parkingLotAdmin(admin.ModelAdmin):
     list_display = (
-    'is_slot_available', 'is_reentry_allowed', 'no_of_blocks', 'pincode', 'is_valet_available', 'landmark',
-    'building_no', 'street_name')
+        'name', 'is_slot_available', 'is_reentry_allowed', 'no_of_blocks', 'pincode', 'is_valet_available', 'landmark',
+        'building_no', 'street_name', 'cost')
 
 
 @admin.register(block)
@@ -19,7 +19,8 @@ class blockAdmin(admin.ModelAdmin):
 @admin.register(floor)
 class floorAdmin(admin.ModelAdmin):
     list_display = (
-    'block_id', 'is_floor_full', 'is_covered', 'floor_number', 'max_height', 'no_of_slots', 'no_of_wings', 'block_code')
+        'block_id', 'is_floor_full', 'is_covered', 'floor_number', 'max_height', 'no_of_slots', 'no_of_wings',
+        'block_code')
 
 
 @admin.register(parking_slot)
