@@ -9,7 +9,6 @@ class parking_slot_reservation(models.Model):
     id = models.AutoField(primary_key=True)
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     start_time_stamp = models.DateTimeField(auto_now=True)
-    duration_in_minutes = models.IntegerField()
     booking_date = models.DateField(auto_now=True)
     parking_slot_id = models.ForeignKey(parking_slot, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)

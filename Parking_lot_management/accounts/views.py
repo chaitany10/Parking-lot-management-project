@@ -198,7 +198,7 @@ def checkout(request):
         return HttpResponseRedirect('/home/')
     else:
         customer = Customer.objects.get(customer_id=request.user)
-        reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
+        reservation = parking_slot_reservation.objects.filter(customer_id=customer, is_active=True)
         reservation.is_active = False
         cost_per_hour = reservation.cost_per_hour
         parking_slot1 = parking_slot.objects.get(id=reservation.parking_slot_id.id)

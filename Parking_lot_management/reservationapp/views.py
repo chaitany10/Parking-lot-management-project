@@ -31,35 +31,25 @@ def confirmbooking(request, parking_lot_no, block_no, floor_no, parking_slot_no)
 
 def reserve(request, parking_lot_no, block_no, floor_no, parking_slot_no):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = DurationForm(request.POST)
-            duration = int(request.POST.get('duration', None))
-            parking_lot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
-            block1 = block.objects.get(parking_lot_id=parking_lot, id=block_no)
-            floor1 = floor.objects.get(id=floor_no, block_id=block1)
-            final_parking_slot = parking_slot.objects.get(id=parking_slot_no, floor_id=floor1)
-            final_parking_slot.is_reserved = True
-            final_parking_slot.save()
-            customer = Customer.objects.get(customer_id=request.user)
-            parking_slot_reservation1 = parking_slot_reservation()
-            parking_slot_reservation1.customer_id = customer
-            parking_slot_reservation1.parking_slot_id = final_parking_slot
-            parking_slot_reservation1.duration_in_minutes = duration
-            parking_slot_reservation1.cost=parking_lot.cost
-            parking_slot_reservation1.save()
-
-            context = {
-                'parking_lot_no': parking_lot_no,
-                'block_no': block_no,
-                'floor_no': floor_no,
-                'parking_slot_no': parking_slot_no,
-            }
-            return render(request, 'confirmed.html', context)
+        parking_lot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
+        block1 = block.objects.get(parking_lot_id=parking_lot, id=block_no)
+        floor1 = floor.objects.get(id=floor_no, block_id=block1)
+        final_parking_slot = parking_slot.objects.get(id=parking_slot_no, floor_id=floor1)
+        final_parking_slot.is_reserved = True
+        final_parking_slot.save()
+        customer = Customer.objects.get(customer_id=request.user)
+        parking_slot_reservation1 = parking_slot_reservation()
+        parking_slot_reservation1.customer_id = customer
+        parking_slot_reservation1.parking_slot_id = final_parking_slot
+        parking_slot_reservation1.cost_per_hour = parking_lot.cost
+        parking_slot_reservation1.save()
+        context = {
+            'parking_lot_no': parking_lot_no,
+            'block_no': block_no,
+            'floor_no': floor_no,
+            'parking_slot_no': parking_slot_no,
+        }
+        return render(request, 'confirmed.html', context)
     else:
         return HttpResponseRedirect(reverse('home'))
 
-
-def print_parking_slip(request, parking_slot_reservation):
-    if request.user.is_authenticated:
-        bill = parking_slip()
-        bill.actual_exit_time = datetime.now()
