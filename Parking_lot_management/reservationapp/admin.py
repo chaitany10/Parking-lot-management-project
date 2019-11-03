@@ -6,7 +6,7 @@ from .models import parking_slot_reservation, parking_slip
 # Register your models here.
 @admin.register(parking_slot_reservation)
 class parkingLotAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer_id', 'start_time_stamp', 'booking_date', 'parking_slot_id')
+    list_display = ('id', 'customer_id', 'start_time_stamp', 'booking_date', 'parking_slot_id','cost')
 
 
 @admin.register(parking_slip)

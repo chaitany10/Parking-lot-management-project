@@ -1,6 +1,7 @@
 import json
 import urllib
-
+import datetime
+from datetime import datetime, date, time, timedelta
 from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
@@ -15,7 +16,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from parkingapp.models import parking_slot
-from reservationapp.models import parking_slot_reservation
+from reservationapp.models import parking_slot_reservation,parking_slip
 
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
@@ -184,11 +185,11 @@ def bookingHistory(request):
         reservation = parking_slot_reservation.objects.filter(customer_id=customer)
         no_reservation = False
         if reservation.count() == 0:
-            no_reservation=True
+            no_reservation = True
         context = {
-            'customer':customer,
-            'reservation':reservation,
-            'no_reservation':no_reservation
+            'customer': customer,
+            'reservation': reservation,
+            'no_reservation': no_reservation
         }
         return render(request, 'bookings.html', context)
 
@@ -198,19 +199,34 @@ def checkout(request):
         return HttpResponseRedirect('/home/')
     else:
         customer = Customer.objects.get(customer_id=request.user)
-        reservation = parking_slot_reservation.objects.filter(customer_id=customer, is_active=True)
+        reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
         reservation.is_active = False
+        parking_slip1 = parking_slip()
+        parking_slip1.actual_entry_time = reservation.start_time_stamp
+        parking_slip1.actual_exit_time = datetime.now()
+        st_sec = parking_slip1.actual_entry_time.second + parking_slip1.actual_entry_time.minute * 60 + parking_slip1.actual_entry_time.hour * 24 * 60
+        et_sec = parking_slip1.actual_exit_time.second + parking_slip1.actual_exit_time.minute * 60 + parking_slip1.actual_exit_time.hour * 24 * 60
+        hoursspent = (et_sec - st_sec)
+        print(st_sec)
+        print(et_sec)
+        print(hoursspent)
+        hoursspent = hoursspent // 3600
+        print(hoursspent)
+        total_duration = hoursspent
         cost_per_hour = reservation.cost_per_hour
+
         parking_slot1 = parking_slot.objects.get(id=reservation.parking_slot_id.id)
         parking_slot1.is_reserved = False
         parking_slot1.save()
-        total_duration = 1
         total_cost = total_duration * cost_per_hour
-
+        reservation.cost = total_cost
+        parking_slip1.basic_cost = total_cost
+        parking_slip1.parking_slot_id = parking_slot1
+        parking_slip1.save()
         context = {
             'reservation': reservation,
             'customer': customer,
-            'total_cost': total_cost
+            'parking_slip': parking_slip1
         }
         reservation.save()
 

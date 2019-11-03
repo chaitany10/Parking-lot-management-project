@@ -12,10 +12,10 @@ class parking_slot_reservation(models.Model):
     booking_date = models.DateField(auto_now=True)
     parking_slot_id = models.ForeignKey(parking_slot, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
-
+    cost = models.IntegerField()
 class parking_slip(models.Model):
     id = models.AutoField(primary_key=True)
-    actual_entry_time = models.DateTimeField(auto_now=True)
+    actual_entry_time = models.DateTimeField()
     actual_exit_time = models.DateTimeField()
     basic_cost = models.IntegerField()
     is_paid = models.BooleanField(default=True)
