@@ -71,6 +71,19 @@ class RegForm(forms.Form):
         print("clean_password_again completed")
 
         return password_again
+    def clean_firstname(self):
+        firstname = self.cleaned_data.get('firstname')
+        if not re.match("[a-zA-Z]",firstname):
+            raise forms.ValidationError('Name cannot contain digits')
+    def clean_lastname(self):
+        lastname = self.cleaned_data.get('lastname')
+        if not re.match("[a-zA-Z]",lastname):
+            raise forms.ValidationError('Name cannot contain digits')
+    def clean_user_phone(self):
+        user_phone = self.cleaned_data.get('user_phone')
+        if not re.match("[0-9]",user_phone):
+            raise forms.ValidationError('Phone number cannot contain alphabets')
+        
 
 
 
