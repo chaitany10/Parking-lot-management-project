@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+			{% load staticfiles %}
+			<div class="topnav">
+				<a href="/profile">My Profile</a>
+				<a href="/home">Home</a>
+				<a href="/bookings">My Bookings</a>				
+			</div>
+		<title>{{customer.firstname}} {{customer.lastname}}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'profile/assets/css/main.css'%}" />
+		<link rel="stylesheet" href="{% static '/login/keypad/navbar.css' %}"/>
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<table id="datatable" class="table table-hover table-striped table-bordered">
+        <thead>
+            <th>Username</th>
+            <th>Booking Date</th>
+            <th>Start Time</th>
+            <th>Total Duration</th>
+            <th>Is Active</th>
+            <th>Cost</th>
+        </thead>
+        <tbody>
+            {% for item in reservation %}
+                <tr>
+
+                        <td>{{ customer.username }}</td>
+                        <td>{{ item.booking_date }}</td>
+                        <td>{{ item.start_time_stamp }}</td>
+                        <td> {{}}</td>
+                        <td data-value="{{ account.SIG }}">
+                            <form action="./" method="post" class="form-inline">{% csrf_token %}
+                                <input type="hidden" name="pk" value="{{ account.pk }}">
+                                <select class="form-control" name="SIG">
+                                    <option value="CO" {% if account.SIG == "CO" %}selected="selected"{% endif %}>Code</option>
+                                    <option value="GD" {% if account.SIG == "GD" %}selected="selected"{% endif %}>Gadget</option>
+                                    <option value="GR" {% if account.SIG == "GR" %}selected="selected"{% endif %}>Garage</option>
+                                </select>
+                                <input class="btn btn-primary" type="submit" value="Save"/>
+                            </form>
+                        </td>
+                                <script type="text/javascript">
+                                                function proxy{{ account.pk }}() {
+                                                    configureModal({{ account.pk }},
+                                                            '{{ account.user.username }}',
+                                                            '{{ account.role }}'
+                                                        )
+                                                };
+                                            </script>
+                                <script type="text/javascript">
+                                                function delete{{ account.pk }}() {
+                                                    configureModalDelete({{ account.pk }},
+                                                            '{{ account.user.username }}',
+                                                            '{{ account.role }}'
+                                                        )
+                                                };
+                                            </script>
+                        <td><button onclick="proxy{{ account.pk }}()" type="button" class="btn btn-warning" data-toggle="modal" data-target="#archive-modal">Archive</button>
+                        <button onclick="delete{{ account.pk }}()" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</button></td>
+
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+		<!-- Scripts -->
+			<script src="{% static 'profile/assets/js/jquery.min.js'%}"></script>
+			<script src="{% static 'profile/assets/js/jquery.scrollex.min.js'%}"></script>
+			<script src="{% static 'profile/assets/js/jquery.scrolly.min.js'%}"></script>
+			<script src="{% static 'profile/assets/js/browser.min.js'%}"></script>
+			<script src="{% static 'profile/assets/js/breakpoints.min.js'%}"></script>
+			<script src="{% static 'profile/assets/js/util.js'%}"></script>
+			<script src="{% static 'profile/assets/js/main.js'%}"></script>
+							
+
+	</body>
+</html>

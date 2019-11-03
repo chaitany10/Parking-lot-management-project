@@ -180,13 +180,12 @@ def bookingHistory(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
         customer = Customer.objects.get(customer_id=request.user)
-        current_reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
-        past_reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=False)
+        reservation = parking_slot_reservation.objects.get(customer_id=customer)
         context = {
-            'customer': customer,
-            'past': past_reservation,
-            'current': current_reservation
+            'customer':customer,
+            'reservation':reservation
         }
+        return render(request, 'bookings.html', context)
 
 
 def checkout(request):

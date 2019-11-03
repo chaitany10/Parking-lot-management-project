@@ -15,13 +15,12 @@ from .models import parking_slip,parking_slot_reservation
 def confirmbooking(request, parking_lot_no, block_no, floor_no, parking_slot_no):
     if request.user.is_authenticated:
 
-        form = DurationForm()
+
         context = {
             'parking_lot_no': parking_lot_no,
             'block_no': block_no,
             'floor_no': floor_no,
             'parking_slot_no': parking_slot_no,
-            'form': form
 
         }
         return render(request, 'confirmbooking.html', context)
