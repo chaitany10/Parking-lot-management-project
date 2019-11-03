@@ -17,6 +17,11 @@ class parkingLot(models.Model):
     name = models.CharField(max_length=20)
     def __str__(self):
         return str(self.parking_lot_id)
+    def reentry(self):
+        if self.is_reentry_allowed:
+            return "Yes"
+        else:
+            return "No"
 
 
 class block(models.Model):
