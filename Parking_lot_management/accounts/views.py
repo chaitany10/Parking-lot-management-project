@@ -5,6 +5,7 @@ from datetime import datetime, date, time, timedelta
 from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
+import re
 from django.contrib.auth import authenticate, login
 # from tariff.models import Tariffs
 from django.contrib.auth import update_session_auth_hash
