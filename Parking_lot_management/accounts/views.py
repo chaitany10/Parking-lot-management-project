@@ -5,25 +5,23 @@ from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+# from tariff.models import Tariffs
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from parkingapp.models import parking_slot
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from reservationapp.models import parking_slot_reservation, parking_slip
+from parkingapp.models import parking_slot
+from reservationapp.models import parking_slot_reservation
+
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
 from .models import Customer, Vehicle_Numbers, Regular_Customer
 
 
-# from tariff.models import Tariffs
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-
-import datetime
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -39,6 +37,7 @@ def change_password(request):
     return render(request, 'change_password.html', {
         'form': form
     })
+
 
 def profile(request):
     if request.user.is_authenticated:
@@ -67,8 +66,8 @@ def home(request):
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
     current_booking = True
-    customer = Customer.objects.get(customer_id= request.user)
-    reservation = parking_slot_reservation.objects.get(customer_id = customer, is_active = True )
+    customer = Customer.objects.get(customer_id=request.user)
+    reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
     if reservation is None:
         current_booking = False
 
@@ -78,7 +77,7 @@ def home(request):
         customer = Customer.objects.get(customer_id=request.user)
         context = {
             'customer': customer,
-            'current_booking':current_booking
+            'current_booking': current_booking
         }
     else:
         context = {
@@ -177,6 +176,19 @@ def logout(request):
     return HttpResponseRedirect(reverse('home'))
 
 
+def bookingHistory(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/home/')
+        customer = Customer.objects.get(customer_id=request.user)
+        current_reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
+        past_reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=False)
+        context = {
+            'customer': customer,
+            'past': past_reservation,
+            'current': current_reservation
+        }
+
+
 def checkout(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
@@ -185,18 +197,17 @@ def checkout(request):
         reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
         reservation.is_active = False
         cost_per_hour = reservation.cost_per_hour
-        parking_slot1 = parking_slot.objects.get(id = reservation.parking_slot_id.id)
-        parking_slot1.is_reserved=False
+        parking_slot1 = parking_slot.objects.get(id=reservation.parking_slot_id.id)
+        parking_slot1.is_reserved = False
         parking_slot1.save()
         total_duration = 1
-        total_cost = total_duration*cost_per_hour
+        total_cost = total_duration * cost_per_hour
 
         context = {
-            'reservation':reservation,
-            'customer':customer,
-            'total_cost':total_cost
+            'reservation': reservation,
+            'customer': customer,
+            'total_cost': total_cost
         }
         reservation.save()
 
         return render(request, 'checkout.html', context)
-
