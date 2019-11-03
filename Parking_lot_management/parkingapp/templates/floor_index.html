@@ -17,20 +17,28 @@ Parking system|
                 {% endfor %} -->
             <table class="table">
                     <thead>
-                            <i class="fas fa-warehouse" style="font-size: 50px; color: white ;float : left ; padding-bottom: 20px;padding-left: 170px;"></i>
-                            <i class="fas fa-dollar-sign" style="font-size: 50px; color: white ;float : right ; padding-bottom: 20px;padding-right: 210px;"></i>
+                            <i class="fas fa-warehouse" style="font-size: 50px; color: white ;float : left ; padding-bottom: 20px;padding-left: 350px;"></i>
+                            
                     </thead>
                     <tbody>
 
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="/parking_lot/block/floor/parking_slot/{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}</a>   </h4>
+                                <h4> <a style="color:white" >Floor Number<br>Is covered ?</a>   </h4>
                             </td>
-
+                            {%if item.is_covered %}
                             <td>
-                                <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. 0/hour</h4>
+                                <h4 style="padding-left: 350px; "> <a style="color:white" href="/parking_lot/block/floor/parking_slot/{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}<br>Yes</a>   </h4>
                             </td>
+                            {%else%}
+                            <td>
+                                <h4 style="padding-left: 350px; "> <a style="color:white" href="/parking_lot/block/floor/parking_slot/{{parking_lot}}/{{block_no}}/{{ item.pk }}"> {{ item.floor_id}}<br>No</a>   </h4>
+                            </td>
+                            {%endif%}
+                                
+
+                           
                         </tr>
 
                         {% endfor %}

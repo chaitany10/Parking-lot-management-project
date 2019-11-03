@@ -17,8 +17,8 @@ Parking system|
                 {% endfor %} -->
             <table class="table">
                     <thead>                        
-                            <i class="fas fa-warehouse" style="font-size: 50px; color: white ;float : left ; padding-bottom: 20px;padding-left: 170px;"></i>
-                            <i class="fas fa-dollar-sign" style="font-size: 50px; color: white ;float : right ; padding-bottom: 20px;padding-right: 210px;"></i>
+                            <i class="fas fa-warehouse" style="font-size: 50px; color: white ;float : left ; padding-bottom: 20px;padding-left: 350px;"></i>
+                            
                     </thead>
                     <tbody>
 
@@ -26,12 +26,10 @@ Parking system|
                         <tr>
 
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="floor/{{parking_lot}}/{{ item.pk }}"> {{ item.block_id}}</a>   </h4>
+                                <h4 style="padding-left: 360px; "> <a style="color:white" href="floor/{{parking_lot}}/{{ item.pk }}"> {{ item.block_id}}</a>   </h4>
                             </td>
                             
-                            <td>                    
-                                <h4 style="color:white ; float: right ; padding-right: 150px;">  Rs. 0/hour</h4>
-                            </td>
+                            
                         </tr>
                         
                         {% endfor %}

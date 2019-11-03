@@ -25,11 +25,19 @@ Parking system|
                         {% for item in positions_list %}
                         <tr>
                             <td>
-                                <h4 style="padding-left: 150px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.name}}<br>{{item.street_name}}</a>   </h4>
+                                    <h4> <a style="color:white"> Parking Lot Name<br>Location<br>Is valet available ?<br>Landmark</a>   </h4>
+                            </td>
+                                    
+                            <td>
+                                {%if item.is_valet_available %}
+                                <h4 style="padding-left: 15px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.name}}<br>{{item.street_name}}<br>Yes<br>{{item.landmark}}</a>   </h4>
+                                {%else%}
+                                <h4 style="padding-left: 15px; "> <a style="color:white" href="block/{{ item.pk }}"> {{ item.name}}<br>{{item.street_name}}<br>No<br>{{item.landmark}}</a>   </h4>
+                                {%endif%}
                             </td>
                             
                             <td>                    
-                                <h4 style="color:white ; float: right ; padding-right: 150px;">{{item.cost}} </h4>
+                                <h4 style="color:white ; float: right ; padding-right: 200px;">{{item.cost}}/hour </h4>
                             </td>
                         </tr>
                         
