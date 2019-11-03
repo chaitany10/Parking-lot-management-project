@@ -14,13 +14,20 @@ from .models import parking_slip,parking_slot_reservation
 
 def confirmbooking(request, parking_lot_no, block_no, floor_no, parking_slot_no):
     if request.user.is_authenticated:
-
+        parking_lot = parkingLot.objects.get(parking_lot_id=parking_lot_no)
+        block1 = block.objects.get(parking_lot_id=parking_lot, id=block_no)
+        floor1 = floor.objects.get(id=floor_no, block_id=block1)
+        final_parking_slot = parking_slot.objects.get(id=parking_slot_no, floor_id=floor1)
 
         context = {
             'parking_lot_no': parking_lot_no,
             'block_no': block_no,
             'floor_no': floor_no,
             'parking_slot_no': parking_slot_no,
+            'parking_lot_object':parking_lot,
+            'block_object':block1,
+            'floor_object':floor1,
+            'parking_slot_object': final_parking_slot,
 
         }
         return render(request, 'confirmbooking.html', context)
@@ -49,6 +56,10 @@ def reserve(request, parking_lot_no, block_no, floor_no, parking_slot_no):
             'block_no': block_no,
             'floor_no': floor_no,
             'parking_slot_no': parking_slot_no,
+            'parking_lot_object': parking_lot,
+            'block_object': block1,
+            'floor_object': floor1,
+            'parking_slot_object': final_parking_slot,
         }
         return render(request, 'confirmed.html', context)
     else:

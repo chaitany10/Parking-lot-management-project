@@ -61,7 +61,7 @@ Parking system|Home
                     {% endif %}
 
 
-                    {% if user.is_authenticated and not user.is_superuser and not current_booking%}
+                    {% if user.is_authenticated and not user.is_superuser%}
                     <a class="normal_text" href="/parking_lot" type="button">Booking parking space</a>
                     {% endif %}
 
