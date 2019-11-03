@@ -178,12 +178,17 @@ def logout(request):
 
 def bookingHistory(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/home/')
+        return HttpResponseRedirect('/login/')
+    else:
         customer = Customer.objects.get(customer_id=request.user)
-        reservation = parking_slot_reservation.objects.get(customer_id=customer)
+        reservation = parking_slot_reservation.objects.filter(customer_id=customer)
+        no_reservation = False
+        if reservation.count() == 0:
+            no_reservation=True
         context = {
             'customer':customer,
-            'reservation':reservation
+            'reservation':reservation,
+            'no_reservation':no_reservation
         }
         return render(request, 'bookings.html', context)
 

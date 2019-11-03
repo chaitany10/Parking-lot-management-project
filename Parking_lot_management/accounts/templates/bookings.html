@@ -18,6 +18,13 @@
 	<body class="is-preload">
 
 		<!-- Wrapper -->
+        {% if no_reservation%}
+        <div class="content" align="center">
+							<h3>Hey {{customer.firstname}} {{customer.lastname}}, you are yet to do your first booking!</h3>
+                        <a href="/home" class="button big wide smooth-scroll-middle">Go to Home</a>
+						</div>
+        {%endif%}
+        {% if not no_reservation%}
 			<table id="datatable" class="table table-hover table-striped table-bordered">
         <thead>
             <th>Username</th>
@@ -34,43 +41,16 @@
                         <td>{{ customer.username }}</td>
                         <td>{{ item.booking_date }}</td>
                         <td>{{ item.start_time_stamp }}</td>
-                        <td> {{}}</td>
-                        <td data-value="{{ account.SIG }}">
-                            <form action="./" method="post" class="form-inline">{% csrf_token %}
-                                <input type="hidden" name="pk" value="{{ account.pk }}">
-                                <select class="form-control" name="SIG">
-                                    <option value="CO" {% if account.SIG == "CO" %}selected="selected"{% endif %}>Code</option>
-                                    <option value="GD" {% if account.SIG == "GD" %}selected="selected"{% endif %}>Gadget</option>
-                                    <option value="GR" {% if account.SIG == "GR" %}selected="selected"{% endif %}>Garage</option>
-                                </select>
-                                <input class="btn btn-primary" type="submit" value="Save"/>
-                            </form>
-                        </td>
-                                <script type="text/javascript">
-                                                function proxy{{ account.pk }}() {
-                                                    configureModal({{ account.pk }},
-                                                            '{{ account.user.username }}',
-                                                            '{{ account.role }}'
-                                                        )
-                                                };
-                                            </script>
-                                <script type="text/javascript">
-                                                function delete{{ account.pk }}() {
-                                                    configureModalDelete({{ account.pk }},
-                                                            '{{ account.user.username }}',
-                                                            '{{ account.role }}'
-                                                        )
-                                                };
-                                            </script>
-                        <td><button onclick="proxy{{ account.pk }}()" type="button" class="btn btn-warning" data-toggle="modal" data-target="#archive-modal">Archive</button>
-                        <button onclick="delete{{ account.pk }}()" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</button></td>
+                        <td> 1</td>
+                        <td> {{item.is_active}}</td>
+                        <td>{{item.cost_per_hour}}</td>
 
 
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
+    {% endif %}
 		<!-- Scripts -->
 			<script src="{% static 'profile/assets/js/jquery.min.js'%}"></script>
 			<script src="{% static 'profile/assets/js/jquery.scrollex.min.js'%}"></script>
