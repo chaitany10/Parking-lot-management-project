@@ -42,6 +42,7 @@ def reserve(request, parking_lot_no, block_no, floor_no, parking_slot_no):
         parking_slot_reservation1.customer_id = customer
         parking_slot_reservation1.parking_slot_id = final_parking_slot
         parking_slot_reservation1.cost_per_hour = parking_lot.cost
+        parking_slot_reservation1.cost = parking_lot.cost
         parking_slot_reservation1.save()
         context = {
             'parking_lot_no': parking_lot_no,
