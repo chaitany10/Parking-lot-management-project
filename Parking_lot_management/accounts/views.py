@@ -65,15 +65,15 @@ def home(request):
     # car_pos_num = car_positions.count()
     # print(request.user.is_accountant)
     # print(request.user.is_site_manager)
-    current_booking = True
-    customer = Customer.objects.get(customer_id=request.user)
-    reservation = parking_slot_reservation.objects.get(customer_id=customer, is_active=True)
-    if reservation is None:
-        current_booking = False
 
-    if request.user.is_authenticated and not request.user.is_superuser:
+    if request.user.is_authenticated:
         print(request.user)
-
+        current_booking = True
+        customer = Customer.objects.get(customer_id=request.user)
+        reservation = parking_slot_reservation.objects.filter(customer_id=customer, is_active=True)
+        if reservation.count() == 0:
+            current_booking = False
+        print(current_booking)
         customer = Customer.objects.get(customer_id=request.user)
         context = {
             'customer': customer,
