@@ -21,15 +21,13 @@ Parking system|
                             
                     </thead>
                     <tbody>
-
                         {% for item in positions_list %}
                         <tr>
                             <td>
                                 <h4 style="padding-left: 350px; "> <a style="color:white" href="/confirmbooking/{{parking_lot}}/{{block_no}}/{{floor_no}}/{{ item.pk }}"> {{ item.parking_slot_id}}</a>   </h4>
                             </td>                           
                             
-                        </tr>
-                        
+                        </tr>                        
                         {% endfor %}
                     </tbody>
             </table>                    
