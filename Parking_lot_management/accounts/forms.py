@@ -72,18 +72,33 @@ class RegForm(forms.Form):
 
         return password_again
     def clean_firstname(self):
+        var = False
         firstname = self.cleaned_data.get('firstname')
-        if not re.match("[a-zA-Z]",firstname):
+        for i in firstname:
+            if not re.match("[a-zA-Z]", i):
+                var = True
+
+        if not re.match("[a-zA-Z]",firstname) or var:
             raise forms.ValidationError('Name cannot contain digits')
+        return firstname
     def clean_lastname(self):
         lastname = self.cleaned_data.get('lastname')
-        if not re.match("[a-zA-Z]",lastname):
+        var = False
+        for i in lastname:
+            if not re.match("[a-zA-Z]", i):
+                var = True
+        if not re.match("[a-zA-Z]",lastname) or var:
             raise forms.ValidationError('Name cannot contain digits')
+        return lastname
     def clean_user_phone(self):
         user_phone = self.cleaned_data.get('user_phone')
-        if not re.match("[0-9]",user_phone):
+        var = False
+        for i in user_phone:
+            if not re.match("[0-9]",i):
+                var= True
+        if not re.match("[0-9]",user_phone) or var:
             raise forms.ValidationError('Phone number cannot contain alphabets')
-        
+        return user_phone
 
 
 

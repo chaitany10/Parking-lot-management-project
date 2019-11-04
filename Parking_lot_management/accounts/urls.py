@@ -11,5 +11,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('password/', views.change_password, name='change_password'),
     path('checkout/', views.checkout, name='checkout'),
-    path('bookinghistory/', views.bookingHistory, name='bookinghistory')
+    path('bookinghistory/', views.bookingHistory, name='bookinghistory'),
+    path('downloadbills/', views.download_csv, name='download'),
+    path('downloadreservations/', views.download_csv_reservation, name='download_reservation'),
+    path('downloadcustomers/', views.download_csv_customers, name='download_reservation'),
 ]

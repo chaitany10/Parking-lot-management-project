@@ -5,7 +5,6 @@ from datetime import datetime, date, time, timedelta
 from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
-import re
 from django.contrib.auth import authenticate, login
 # from tariff.models import Tariffs
 from django.contrib.auth import update_session_auth_hash
@@ -18,6 +17,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from parkingapp.models import parking_slot
 from reservationapp.models import parking_slot_reservation,parking_slip
+from djqscsv import render_to_csv_response
 
 from .forms import LoginForm, RegForm
 # from carposition.models import Positions
@@ -232,3 +232,32 @@ def checkout(request):
         reservation.save()
 
         return render(request, 'checkout.html', context)
+
+def download_csv(request):
+    if not (request.user.is_superuser):
+        return redirect('/users/home')
+
+    qs = parking_slip.objects.all()
+    return render_to_csv_response(qs,filename=u'parking_slips.csv')
+
+
+def download_csv_reservation(request):
+    if not (request.user.is_superuser):
+        return redirect('/users/home')
+
+    qs = parking_slot_reservation.objects.all()
+    return render_to_csv_response(qs,filename=u'parking_reservation.csv')
+
+
+def download_csv_customers(request):
+    if not (request.user.is_superuser):
+        return redirect('/users/home')
+
+    qs = Customer.objects.all()
+    return render_to_csv_response(qs,filename=u'customers.csv')
+
+
+
+
+
+

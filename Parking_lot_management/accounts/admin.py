@@ -17,8 +17,8 @@ class Regular_CustomerAdmin(admin.ModelAdmin):
 @admin.register(Vehicle_Numbers)
 class Vehicle_Admin(admin.ModelAdmin):
     list_display = ('customer_id', 'vehicle_no', 'vehicle_height')
-
-@admin.register(Cost)
-class CostAdmin(admin.ModelAdmin):
-    list_display = ('cost', 'duration')
+#
+# @admin.register(Cost)
+# class CostAdmin(admin.ModelAdmin):
+#     list_display = ('cost', 'duration')
 

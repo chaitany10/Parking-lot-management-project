@@ -13,16 +13,17 @@ class parkingLotAdmin(admin.ModelAdmin):
 
 @admin.register(block)
 class blockAdmin(admin.ModelAdmin):
-    list_display = ('parking_lot_id', 'is_block_full', 'no_of_floors', 'block_code')
+    list_display = ('id','parking_lot_id', 'is_block_full', 'no_of_floors', 'block_code')
 
 
 @admin.register(floor)
 class floorAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'block_id', 'is_floor_full', 'is_covered', 'floor_number', 'max_height', 'no_of_slots', 'no_of_wings',
         'block_code')
 
 
 @admin.register(parking_slot)
 class parking_slotAdmin(admin.ModelAdmin):
-    list_display = ('floor_id', 'wing_code', 'slot_no')
+    list_display = ('id','floor_id', 'wing_code', 'slot_no')
